@@ -10,5 +10,9 @@ The analysis pipeline is as following:
    - trial3: align smoothed deconvolved calcium trances with beahvaioral events
    - CC, jsf: information related to the location of each neurons
 4. Use Manual_ROI_correction.m to manually remove bad segments
+   - Only the first session is used for manual correction
+   - Just type the ROI you think is not good and reject it
+   - It will save a file called reject.mat (it may contains repeated data, remember to use unique(reject) to use it)
+   
 5. Use the summaryImaging_v2.m (in DataAnalysis folder) to automatically summarize the response
 
