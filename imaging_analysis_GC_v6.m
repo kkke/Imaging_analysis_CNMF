@@ -29,10 +29,10 @@ file2 = [animalID,'_',date,'.rhd'];
 [analog,trial] = process_intan_v2(file2);
 
 [trial] = imaging_analysis_GC_v7(F_dff,trial,animalID,date);
-% [trial2] = imaging_analysis_GC_v7(S_dec,trial,animalID,date); 
-% [trial3] = imaging_analysis_GC_v7(C_dec,trial,animalID,date);
-[trial2] = imaging_analysis_GC_v8(S_dec,trial,animalID,date); % traces were not smoothed
-[trial3] = imaging_analysis_GC_v8(C_dec,trial,animalID,date); % traces were not smoothed
+[trial2] = imaging_analysis_GC_v7(S_dec,trial,animalID,date); 
+[trial3] = imaging_analysis_GC_v7(C_dec,trial,animalID,date);
+% [trial2] = imaging_analysis_GC_v8(S_dec,trial,animalID,date); % traces were not smoothed
+% [trial3] = imaging_analysis_GC_v8(C_dec,trial,animalID,date); % traces were not smoothed
 
 % field = {'S_trace_dF','M_trace_dF','CA_trace_dF','Q_trace_dF','W_trace_dF',...
 %     'S_licks','M_licks','CA_licks','Q_licks','W_licks'};
