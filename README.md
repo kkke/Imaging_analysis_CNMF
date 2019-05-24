@@ -16,4 +16,8 @@ The analysis pipeline is as following:
    
 5. Use the summaryImaging_v2.m to automatically summarize the response
 6. Use the summaryImaging_v7.m to summarize and plot the results
+   - It needs the stats for taste response; which the baseline is 1 s before the tone and there are no trials being removed
+   - It needs the stats for cue and lick responses; which the baseline is 1 s before the tone and some trials with early licking were removed
+   - It needs the stats for taste response; which the baseline is 0.5 s before the taste delivery. This is used to differentiate the lick and taste response
+   - It needs the stats for lick response; which the baseline is 0.5 s before licking. This is used to differentiate the cue and lick response
 
