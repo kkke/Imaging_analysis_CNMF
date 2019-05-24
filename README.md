@@ -19,15 +19,15 @@ The analysis pipeline is as following:
       - It calls the imaging_analysis_GC_v8 to remove the smoothness
       - It calls the TasteTestDev_v2.m to perform the stats for taste response: p<0.05, baseline is 1 s before tone delivery
       - It also loads the manually deleted ROIs to remove them
-      - These analysis results should be saved as *all_decon_taste_v2.mat*
+      - These analysis results should be saved as **all_decon_taste_v2.mat**
    - In other case, the code can call the summaryImaging_v6.m function, which deals with the cue and taste response;
       - In addition to remove the smoothness and manually corrected ROIs
       - It calculate the lick initiation for each trials and use the licking initiation to define the taste period for cue and lick response; The function is lickInitiateTime.m
       - It removes trials with early licks; licks occur within 1 s after tone delivery were removed.
       - It realign the calcium traces to the lick initation
       - It calls the tasteResponse8.m to perform the stats for cue and lick response, 1 s before the tone is used as baseline; In addition, it also uses 0.5 s before taste delivery to calculate taste responses. 
-      - The analysis results should be saved as *all_decon_newAlign_v2-2.mat*
-      - *In other cases*, you can enable the code at line 33 to use tasteResponse10.m to perform the stats. It uses 0.5 s before licking as basline, you should saved the results as *all_decon_newAlign_v3-2.mat*
+      - The analysis results should be saved as **all_decon_newAlign_v2-2.mat**
+      - **In other cases**, you can enable the code at line 33 to use tasteResponse10.m to perform the stats. It uses 0.5 s before licking as basline, you should saved the results as **all_decon_newAlign_v3-2.mat**
       
       
 6. Use the summaryImaging_v7.m to summarize and plot the results
