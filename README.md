@@ -15,6 +15,9 @@ The analysis pipeline is as following:
    - It will save a file called reject.mat (it may contains repeated data, remember to use unique(reject) to use it)
    
 5. Use the summaryImaging_v2.m to automatically summarize the response
+   - It calls the summaryImaging_v8 function, which only deals with the taste response;
+      - It calls the imaging_analysis_GC_v8 to remove the smoothness
+      - It calls the TasteTestDev_v2.m to perform the stats for taste response: p<0.05, baseline is 1 s before taste delivery
 6. Use the summaryImaging_v7.m to summarize and plot the results
    - It needs the stats for taste response; which the baseline is 1 s before the tone and there are no trials being removed
    - It needs the stats for cue and lick responses; which the baseline is 1 s before the tone and some trials with early licking were removed
