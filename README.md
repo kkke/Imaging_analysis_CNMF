@@ -14,5 +14,6 @@ The analysis pipeline is as following:
    - Just type the ROI you think is not good and reject it
    - It will save a file called reject.mat (it may contains repeated data, remember to use unique(reject) to use it)
    
-5. Use the summaryImaging_v2.m (in DataAnalysis folder) to automatically summarize the response
+5. Use the summaryImaging_v2.m to automatically summarize the response
+6. Use the summaryImaging_v7.m to summarize and plot the results
 
