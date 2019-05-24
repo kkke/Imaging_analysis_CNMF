@@ -28,6 +28,7 @@ The analysis pipeline is as following:
       - It calls the tasteResponse8.m to perform the stats for cue and lick response, 1 s before the tone is used as baseline; In addition, it also uses 0.5 s before taste delivery to calculate taste responses. 
       - The analysis results should be saved as **all_decon_newAlign_v2-2.mat**
       - **In other cases**, you can enable the code at line 33 to use tasteResponse10.m to perform the stats. It uses 0.5 s before licking as basline, you should saved the results as **all_decon_newAlign_v3-2.mat**
+   - You could call summaryImaging_v9.m and LickingPlots.m to plot the licking parameters (latency and duration)
       
       
 6. Use the summaryImaging_v7.m to summarize and plot the results
