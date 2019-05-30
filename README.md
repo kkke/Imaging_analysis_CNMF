@@ -38,6 +38,6 @@ The analysis pipeline is as following:
    - It needs the stats for lick response; which the baseline is 0.5 s before licking. This is used to differentiate the cue and lick response: **all_decon_newAlign_v3-2.mat**
 
 7. Register cells across different sessions
-   - I tried to use the registration method from the CaImAn package, and it did not work very well; I also tried to use the CellReg from the zivlab, it worked much better. https://github.com/zivlab/CellReg; so the cell align analysis would dependent on this package.
+   - I tried to use the registration method from the CaImAn-MATLAB package, and it did not work very well; I also tried to use the CellReg from the zivlab, it worked much better. https://github.com/zivlab/CellReg; so the cell align analysis would dependent on this package.
    - CellAlign_test.m  is used as a test script for cell registration with CellReg and CNMF
    
