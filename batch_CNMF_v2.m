@@ -44,7 +44,13 @@ end
 %%
 close all
 file = 'RVKC418';
-date = {'190325'};
+date = {'190401','190402'};
+for i = 1:length(date)
+    imaging_analysis_GC_v6(file,date{i})
+end
+%%
+file = 'RVKC428';
+date = {'190624','190626'};
 for i = 1:length(date)
     imaging_analysis_GC_v6(file,date{i})
 end
