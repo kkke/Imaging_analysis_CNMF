@@ -59,3 +59,55 @@ for i = 1:length(date)
     cd(foldername)
     run_pipeline_Ke(foldername)
 end
+%%
+file = 'RVKC417';
+date = {'190325','190327'};
+for i = 1:length(date)
+    foldername = ['F:\Imaging in GC\ImagingData\',file,'\',date{i},'\1']
+    cd(foldername)
+    run_pipeline_Ke(foldername)
+end
+
+%%
+file = 'RVKC418';
+date = {'190401','190402'};
+for i = 1:length(date)
+    foldername = ['F:\Imaging in GC\ImagingData\',file,'\',date{i},'\1']
+    cd(foldername)
+    run_pipeline_Ke(foldername)
+end
+%%
+file = 'RVKC428';
+% date = {'190624','190626'};
+date = {'190701','190702'};
+for i = 1:length(date)
+    foldername = ['G:\Imaging in GC\ImagingData\',file,'\',date{i},'\1']
+    cd(foldername)
+    run_pipeline_Ke(foldername)
+end
+%%
+file = 'RVKC429';
+% date = {'190624','190626'};
+date = {'190701','190702'};
+for i = 1:length(date)
+    foldername = ['G:\Imaging in GC\ImagingData\',file,'\',date{i},'\1']
+    cd(foldername)
+    run_pipeline_Ke(foldername)
+end
+%%
+file = 'RVKC425';
+% date = {'190624','190626'};
+date = {'190701','190703','190708'};
+for i = 1:length(date)
+    foldername = ['G:\Imaging in GC\ImagingData\',file,'\',date{i},'\1']
+    cd(foldername)
+    run_pipeline_Ke(foldername)
+end
+%%
+file = 'RVKC426';
+date = {'190701','190703','190708'};
+for i = 1:length(date)
+    foldername = ['G:\Imaging in GC\ImagingData\',file,'\',date{i},'\1']
+    cd(foldername)
+    run_pipeline_Ke(foldername)
+end
