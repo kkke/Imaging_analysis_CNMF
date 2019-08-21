@@ -40,5 +40,6 @@ The analysis pipeline is as following:
 7. Register cells across different sessions
    - I tried to use the registration method from the CaImAn-MATLAB package, and it did not work very well; I also tried to use the CellReg from the zivlab, it worked much better. https://github.com/zivlab/CellReg; so the cell align analysis would dependent on this package.
    - CellAlign_test.m  is used as a test script for cell registration with CellReg and CNMF
-   - Step 1: run CellAlign_v1. It can re-organize the data; CellReg package needs the spatial footprints for each neurons which is NxMxK matrix, the variable called A_keep which is returned by batch_CNMF contains the information, but you need to reshape it. 
+   - Step 1: run CellAlign_v1. It can re-organize the data to retrieve the spatial footprints for each session; CellReg package needs the spatial footprints for each neurons which is NxMxK matrix, the variable called A_keep which is returned by batch_CNMF contains the information, but you need to reshape it. 
+   - Step 2: run the CellReg.m from the CellReg package; you probably need to play with some parameters to get it work with your data
    
