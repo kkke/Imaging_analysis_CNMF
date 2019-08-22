@@ -75,7 +75,7 @@ rw = 2;
 [lickIni,~] = lickIniateTime(trial);
 
 for j = 1:length(neuron)
-    idx = find(neuron(1).framT>-1 & neuron(1).framT <0); % use [-2,-1] as the baseline
+    idx = find(neuron(1).framT>-1 & neuron(1).framT <0); % use [-1,0] as the baseline
     C_idx1 = find(neuron(1).framT>0 & neuron(1).framT <2);
     baseline   = mean(neuron(j).trace_dF(:,idx),2);
 %     C_1        = mean(neuron(j).trace_dF(:,C_idx1),2);
@@ -106,7 +106,7 @@ clear baseline C_1
 t = 0.01;
 % rw = 1;
 for j = 1:length(neuron)
-    idx = find(trial(1).framT>-1 & trial(1).framT <0); % [-2,-1] as the baseline
+    idx = find(trial(1).framT>-1 & trial(1).framT <0); % [-1,0] as the baseline
 %     C_idx1 = find(trial(1).TLick>0 & trial(1).TLick <rw);
     for i = 1:length(trial)
         baseline(i)   = mean(trial(i).traceSmooth_dF(j,idx),2);

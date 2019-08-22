@@ -8,7 +8,7 @@ taste         = {'S', 'M', 'CA','Q','W'};
 for j = 1:length(taste)
     for i = 1:length(data)
 %         fprintf(num2str(i))
-        ind = find(data(i).framT>-1 & data(i).framT<0);  % choose [-2,-1]  as baseline; [-1,0] was used to calculate dF
+        ind = find(data(i).framT>-1 & data(i).framT<0);  % [-1,0] was used as baseline
         baseline.(taste{j}) = data(i).(trace{j})(:,ind);
         m = mean(baseline.(taste{j}),2);
         indT = find(data(i).T>0 & data(i).T<3.5); % [0 3.5] after taste delivery was used to for stats
