@@ -1,7 +1,10 @@
 clear;close all
 load('data_CNMF')
 [CC,jsf,im] = plot_contours(A_keep,Cn,options,1);
-
+idx = find(cellfun(@isempty,CC));
+if ~isempty(idx)
+    CC{idx,1} = [1,2,3,4,5;6,7,8,9,10];
+end
 gui2p_Calman3(CC,Cn,jsf,F_dff);
 %% for representative examples for spatial map
 % figure;
