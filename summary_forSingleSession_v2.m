@@ -7,7 +7,7 @@ fprintf('Start summarizing data for one session...\n')
 % date     = files_path(end-8:end-3);
 animalID = file(1:7);
 date     = file(9:end);
-files_path = ['F:\Imaging in GC\ImagingData\',animalID,'\',date,'\1']
+files_path = ['G:\Imaging in GC\ImagingData\',animalID,'\',date,'\1']
 file_names = 'dataForCNMF.mat'
 cd(files_path)
 load(file_names)

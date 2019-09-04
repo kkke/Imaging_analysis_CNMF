@@ -7,7 +7,7 @@ fprintf('Start summarizing data for one session...\n')
 % date     = files_path(end-8:end-3);
 animalID = file(1:7);
 date     = file(9:end);
-files_path = ['F:\Imaging in GC\ImagingData\',animalID,'\',date,'\1']
+files_path = ['G:\Imaging in GC\ImagingData\',animalID,'\',date,'\1']
 file_names = 'dataForCNMF.mat'
 cd(files_path)
 load(file_names)
@@ -47,7 +47,7 @@ neuron1_2 = trial2neuron5tastant(trial,animalID,date); % smoothed calcium traces
 
 load('reject.mat')
 reject = unique(reject);
-resp3 = tasteResponse8(neuron2_2,trial2);  % use 1 s before tone as the baseline for cue and use 0.5 s before lick as baseline
+resp3 = tasteResponse8(neuron2_2,trial2);  % use 1 s before tone as the baseline for cue and lick response
 data1 = resp1; % get the taste response
 for i = 1:length(data1)
     data1(i).CueRes = resp3(i).CueRes; % get the cue response
@@ -73,10 +73,11 @@ for m = 1:length(data1)
     data1(m).centroid    = jsf(m).centroid;
 end
 for i = 1:length(data1) % update data1 with the trace for cue and lick response (some trials were removed)
+    data1(i).TLick    = neuron1_2(i).TLick;
     data1(i).trace_dF = neuron1_2(i).trace_dF;
     data1(i).Licktrace_dF = neuron1_2(i).Licktrace_dF;
-    neuron2(i).trace_dF = neuron2(i).trace_dF;
-    neuron2(i).Licktrace_dF  = neuron2(i).Licktrace_dF ;
+    neuron2(i).trace_dF = neuron2_2(i).trace_dF;
+    neuron2(i).Licktrace_dF  = neuron2_2(i).Licktrace_dF ;
 end
 % clearvars -except data1  neuron2 animalID date
 mkdir SessionSummary

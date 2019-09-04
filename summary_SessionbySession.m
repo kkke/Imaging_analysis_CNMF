@@ -25,7 +25,7 @@ for j = 1:length(temp.animalID)
     data.session3{i+j} = temp.session3{j};    
 end
 clearvars -except data
-%% summarize one session data
+%% summarize all session data
 clear data_summary_raw data_summary_dec
 sessions = {'session1','session2','session3'};
 for j = 1:length(sessions)
@@ -33,10 +33,27 @@ for j = 1:length(sessions)
     data_summary_dec.(sessions{j}) =[];
     for i = 1:length(data.animalID)
         cd([data.drive{i},'/',data.animalID{i},'/',data.(sessions{j}){i},'/1/SessionSummary/'])
-        load(['summary_',data.animalID{i},'_date.mat'])
+%         load(['summary_',data.animalID{i},'_date.mat'])
+        load(['summary_',data.animalID{i},'_date_v2.mat'])
         data_summary_raw.(sessions{j}) = [data_summary_raw.(sessions{j}), data1];
         data_summary_dec.(sessions{j}) = [data_summary_dec.(sessions{j}), neuron2];
     end
 end
-save('summaryData.mat','data_summary_dec','data_summary_raw')
+% save('summaryData.mat','data_summary_dec','data_summary_raw')
+save('summaryData_v2.mat','data_summary_dec','data_summary_raw')
 %% run analysis package
+%% Find the cue response, lick response and taste response
+sessions = {'session1','session2','session3'};
+load('summaryData_v2.mat') % data with 0.5 s before taste or lick as baseline test taste and lick response
+for i = 1:length(sessions)
+all_align.(sessions{i}) = data_summary_raw.(sessions{i});
+end
+load('summaryData.mat') % data with 1 s before tone as baseline test taste and lick response
+for i = 1:length(sessions)
+    all.(sessions{i}) = data_summary_raw.(sessions{i});
+end
+for i = 1:length(sessions)
+    datasave(i) = analysispackage(all.(sessions{i}),all_align.(sessions{i}));
+end
+%% summary plot
+summaryplot(datasave,sessions)
