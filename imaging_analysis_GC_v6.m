@@ -7,7 +7,8 @@
 % date     = '180821';
 function [trial, trial2,trial3] = imaging_analysis_GC_v6(animalID,date)
 %%
-path = 'F:\Imaging in GC\ImagingData\';
+% path = 'F:\Imaging in GC\ImagingData\';
+path = 'G:\Imaging in GC\ImagingData\'; % for data stored in G disk
 cd([path,animalID,'\',date,'\1\'])
 file = 'data_CNMF.mat';
 load(file)
@@ -39,4 +40,4 @@ file2 = [animalID,'_',date,'.rhd'];
 % neuron = rmfield(neuron,field);
 % neuron2 = rmfield(neuron2,field);
 cd([path,animalID,'\',date,'\1'])
-save('dataForCNMF_v2.mat','trial','trial2','trial3','CC','jsf')
+save('dataForCNMF.mat','trial','trial2','trial3','CC','jsf')
