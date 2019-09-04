@@ -1,5 +1,6 @@
 function [lickIni bout_dur] = lickIniateTime(trial)
 for i = 1:length(trial)
+    clear bouts du
     tone = trial(i).tone;
     licks = trial(i).licks;
     licks = licks(find(licks>0 & licks<7.5));
@@ -39,6 +40,7 @@ for i = 1:length(trial)
                     du(j) = licks(bouts{j}(end))-licks(bouts{j}(1));
                 end
                 bout_dur(i) = sum(du);
+                clear du
             end
         end
     end
