@@ -3,19 +3,19 @@
 clear
 %% choose data
 neuron = Sources2D();
-nam = get_fullname('RVKC438_2019-08-17.avi');          % this demo data is very small, here we just use it as an example
+nam = get_fullname('RVKC438_2019-08-17_avg2_reg_small.h5');          % this demo data is very small, here we just use it as an example
 nam = neuron.select_data(nam);  %if nam is [], then select data interactively
 
 %% parameters
 % -------------------------    COMPUTATION    -------------------------  %
-pars_envs = struct('memory_size_to_use', 16, ...   % GB, memory space you allow to use in MATLAB
+pars_envs = struct('memory_size_to_use', 50, ...   % GB, memory space you allow to use in MATLAB
     'memory_size_per_patch', 2.2, ...   % GB, space for loading data within one patch
     'patch_dims', [64, 64]);  %GB, patch size
 
 % -------------------------      SPATIAL      -------------------------  %
 gSig = 3;           % pixel, gaussian width of a gaussian kernel for filtering the data. 0 means no filtering
 gSiz = 10;          % pixel, neuron diameter
-ssub = 2;           % spatial downsampling factor
+ssub = 1;           % spatial downsampling factor
 with_dendrites = false;   % with dendrites or not
 if with_dendrites
     % determine the search locations by dilating the current neuron shapes
@@ -32,8 +32,8 @@ spatial_constraints = struct('connected', true, 'circular', false);  % you can i
 spatial_algorithm = 'hals_thresh';
 
 % -------------------------      TEMPORAL     -------------------------  %
-Fs = 16.6;             % frame rate
-tsub = 2;           % temporal downsampling factor
+Fs = 8.3;             % frame rate
+tsub = 2;             % temporal downsampling factor
 deconv_flag = true;     % run deconvolution or not 
 deconv_options = struct('type', 'ar1', ... % model of the calcium traces. {'ar1', 'ar2'}
     'method', 'foopsi', ... % method for running deconvolution {'foopsi', 'constrained', 'thresholded'}
@@ -59,19 +59,22 @@ show_merge = false;  % if true, manually verify the merging step
 merge_thr = 0.65;     % thresholds for merging neurons; [spatial overlap ratio, temporal correlation of calcium traces, spike correlation]
 method_dist = 'max';   % method for computing neuron distances {'mean', 'max'}
 dmin = 5;       % minimum distances between two neurons. it is used together with merge_thr
+% dmin = 2;
 dmin_only = 2;  % merge neurons if their distances are smaller than dmin_only.
 merge_thr_spatial = [0.8, 0.4, -inf];  % merge components with highly correlated spatial shapes (corr=0.8) and small temporal correlations (corr=0.1)
 
 % -------------------------  INITIALIZATION   -------------------------  %
 K = [];             % maximum number of neurons per patch. when K=[], take as many as possible.
 min_corr = 0.8;     % minimum local correlation for a seeding pixel
+% min_corr = 0.6
 min_pnr = 8;       % minimum peak-to-noise ratio for a seeding pixel
+% min_pnr = 6;
 min_pixel = gSig^2;      % minimum number of nonzero pixels for each neuron
 bd = 0;             % number of rows/columns to be ignored in the boundary (mainly for motion corrected data)
 frame_range = [];   % when [], uses all frames
 save_initialization = false;    % save the initialization procedure as a video.
 use_parallel = true;    % use parallel computation for parallel computing
-show_init = true;   % show initialization results
+show_init = false;   % show initialization results
 choose_params = true; % manually choose parameters
 center_psf = true;  % set the value as true when the background fluctuation is large (usually 1p data)
 % set the value as false when the background fluctuation is small (2p)
@@ -218,16 +221,16 @@ neuron.orderROIs('snr');
 cnmfe_path = neuron.save_workspace();
 
 %% show neuron contours
-Coor = neuron.show_contours(0.6);
+% Coor = neuron.show_contours(0.6);
 
 
 %% create a video for displaying the
-amp_ac = 140;
-range_ac = 5+[0, amp_ac];
-multi_factor = 10;
-range_Y = 1300+[0, amp_ac*multi_factor];
-
-avi_filename = neuron.show_demixed_video(save_demixed, kt, [], amp_ac, range_ac, range_Y, multi_factor);
+% amp_ac = 140;
+% range_ac = 5+[0, amp_ac];
+% multi_factor = 10;
+% range_Y = 1300+[0, amp_ac*multi_factor];
+% 
+% avi_filename = neuron.show_demixed_video(save_demixed, kt, [], amp_ac, range_ac, range_Y, multi_factor);
 
 %% save neurons shapes
 neuron.save_neurons();
