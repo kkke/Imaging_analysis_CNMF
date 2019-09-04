@@ -102,8 +102,15 @@ for i = 1:length(trial)
         trial(i).LickTrace = trial(i).traceSmooth_dF(:,idx);
     elseif length(idx) ==49
         idx(end+1) = idx(end)+1;
-        trial(i).TLick = trial(i).time_lick(idx);
-        trial(i).LickTrace = trial(i).traceSmooth_dF(:,idx);
+        if idx(end)<=60
+            trial(i).TLick = trial(i).time_lick(idx);
+            trial(i).LickTrace = trial(i).traceSmooth_dF(:,idx);
+        elseif idx(end) == 61
+            trial(i).TLick = trial(i).time_lick(idx(1:end-1));
+            trial(i).TLick(end+1) = trial(i).TLick(end)+trial(i).TLick(end)-trial(i).TLick(end-1);
+            trial(i).LickTrace = trial(i).traceSmooth_dF(:,idx(1:end-1));
+            trial(i).LickTrace(:,end+1) = zeros(size(trial(i).traceSmooth_dF,1),1); % pad zero
+        end
     end 
 end
 
