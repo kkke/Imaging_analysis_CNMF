@@ -12,7 +12,7 @@ The analysis pipeline is as following:
    
    **In addition, you can also run summary_forSingleSession.m inside the batch_CNMF_v2 to summarize the recording data; summary_forSingleSession.m uses 1s before the cue as baseline for testing cue, lick and taste response; uou can also run summary_forSingleSession_v2.m inside the batch_CNMF_v2 to summarize the recording data; summary_forSingleSession_v2.m uses 0.5s before the taste as baseline for testing taste response, 0.5 s before lick to test the lick response. Please sure that you manually remove non-neuron ROIs.**
    
-4. Use Manual_ROI_correction.m to manually remove bad segments
+~~4. Use Manual_ROI_correction.m to manually remove bad segments
    - Only the scripts in the first session is used for manual correction
    - Just type the ROI you think is not good and reject it
    - It will save a file called reject.mat (it may contains repeated data, remember to use unique(reject) to use it)
@@ -38,7 +38,7 @@ The analysis pipeline is as following:
    - It needs the stats for taste response; which the baseline is 1 s before the tone and there are no trials being removed: **all_decon_taste_v2.mat**
    - It needs the stats for cue and lick responses; which the baseline is 1 s before the tone and some trials with early licking were removed: **all_decon_newAlign_v2-2.mat**
    - It needs the stats for taste response; which the baseline is 0.5 s before the taste delivery. This is used to differentiate the lick and taste response:**all_decon_newAlign_v2-2.mat** or **all_decon_newAlign_v3-2.mat**
-   - It needs the stats for lick response; which the baseline is 0.5 s before licking. This is used to differentiate the cue and lick response: **all_decon_newAlign_v3-2.mat**
+   - It needs the stats for lick response; which the baseline is 0.5 s before licking. This is used to differentiate the cue and lick response: **all_decon_newAlign_v3-2.mat**~~
 
 7. Register cells across different sessions
    - I tried to use the registration method from the CaImAn-MATLAB package, and it did not work very well; I also tried to use the CellReg from the zivlab, it worked much better. https://github.com/zivlab/CellReg; so the cell align analysis would dependent on this package.
