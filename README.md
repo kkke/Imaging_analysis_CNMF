@@ -1,14 +1,17 @@
-# Imaging_analysis_CNMF
+# Imaging_analysis_CNMF_2p
 The imaging analysis relys on the CNMF packages:https://github.com/flatironinstitute/CaImAn-MATLAB and the NoRMCorre algorithm https://github.com/flatironinstitute/NoRMCorre.
 
 The analysis pipeline is as following:
 1. Export the imaging files .MDF into .tif files and use FIJI to down sampled the files (5 times average)
-2. Use the batch_CNMF.m to correct the brain motion and to automatically segment the data
-3. Use the batch_CNMF_v2.m to align the imaging files with the behavioral licking data and taste delivery. The code contains lots of small sessions with each representing a individual animal and recording sessions. This script relies on imaging_analysis_GC_v6.m; The imaging_analysis_GC_v6 registers the imaging data with the behavioral data and it will return the following variables saved in dataForCNMF_v2.mat.
+2. Use the batch_CNMF.m to correct the brain motion and to automatically segment the data; there are multiple sessions in the script, each seesion represents an animal.
+3. Use the batch_CNMF_v2.m to align the imaging files with the behavioral licking data and taste delivery. The code contains lots of small sessions with each representing a individual animal and recording sessions. This script relies on imaging_analysis_GC_v6.m; The imaging_analysis_GC_v6 registers the imaging data with the behavioral data and it will return the following variables saved in dataForCNMF.mat.
    - trial: align smoothed fluorescent calcium traces with behavioral events
    - trial2: align smoothed deconvolved neural activity with beheavioral events
    - trial3: align smoothed deconvolved calcium trances with beahvaioral events
    - CC, jsf: information related to the location of each neurons
+   
+   **In addition, you can also run summary_forSingleSession.m inside the batch_CNMF_v2 to summarize the recording data; summary_forSingleSession.m uses 1s before the cue as baseline for testing cue, lick and taste response; uou can also run summary_forSingleSession_v2.m inside the batch_CNMF_v2 to summarize the recording data; summary_forSingleSession_v2.m uses 0.5s before the taste as baseline for testing taste response, 0.5 s before lick to test the lick response. Please sure that you manually remove non-neuron ROIs.**
+   
 4. Use Manual_ROI_correction.m to manually remove bad segments
    - Only the scripts in the first session is used for manual correction
    - Just type the ROI you think is not good and reject it
