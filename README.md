@@ -12,10 +12,10 @@ The analysis pipeline is as following:
    
    **In addition, you can also run summary_forSingleSession.m inside the batch_CNMF_v2 to summarize the recording data; summary_forSingleSession.m uses 1s before the cue as baseline for testing cue, lick and taste response; uou can also run summary_forSingleSession_v2.m inside the batch_CNMF_v2 to summarize the recording data; summary_forSingleSession_v2.m uses 0.5s before the taste as baseline for testing taste response, 0.5 s before lick to test the lick response. Please sure that you manually remove non-neuron ROIs.**
    
-~~4. Use Manual_ROI_correction.m to manually remove bad segments
-   - Only the scripts in the first session is used for manual correction
-   ~~- Just type the ROI you think is not good and reject it
-   - It will save a file called reject.mat (it may contains repeated data, remember to use unique(reject) to use it)~~
+~~4. Use Manual_ROI_correction.m to manually remove bad segments~~
+   ~~- Only the scripts in the first session is used for manual correction~~
+   ~~- Just type the ROI you think is not good and reject it~~
+   ~~- It will save a file called reject.mat (it may contains repeated data, remember to use unique(reject) to use it)~~
    
 ~~5. Use the summaryImaging_v2.m to automatically summarize the response
    - It calls the summaryImaging_v8 function, which only deals with the taste response;
