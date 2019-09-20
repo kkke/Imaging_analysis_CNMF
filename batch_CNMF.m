@@ -111,11 +111,21 @@ for i = 1:length(date)
     cd(foldername)
     run_pipeline_Ke(foldername)
 end
+<<<<<<< HEAD
 %% 
 file = 'RVKC438';
 date = {'190807','190809','190814'};
 for i = 1:length(date)
     foldername = ['D:\Imagingdata\',file,'\',date{i},'\1']
+=======
+%%
+%%
+file = 'RVKC438';
+% date = {'190807','190809','190814'};
+date = {'190809','190814'};
+for i = 1:length(date)
+    foldername = ['G:\Imaging in GC\ImagingData\',file,'\',date{i},'\1']
+>>>>>>> a94115b8ca4e0ad2a772fa97a27b3c1a133e2258
     cd(foldername)
     run_pipeline_Ke(foldername)
 end

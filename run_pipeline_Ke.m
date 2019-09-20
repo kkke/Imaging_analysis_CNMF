@@ -1,10 +1,10 @@
 % complete pipeline for calcium imaging data pre-processing
 function run_pipeline_Ke(foldername)
 % clear;
-addpath(genpath('E:/MATLAB/Imaging Analysis/NoRMCorre'));               % add the NoRMCorre motion correction package to MATLAB path
-addpath(genpath('E:\MATLAB\Imaging Analysis\CalmAN\utilities'));
-addpath(genpath('E:\MATLAB\Imaging Analysis\CalmAN\deconvolution'));
-addpath('E:\MATLAB\Imaging Analysis\CalmAN')
+addpath(genpath('D:\MATLAB\NoRMCorre'));               % add the NoRMCorre motion correction package to MATLAB path
+addpath(genpath('D:\MATLAB\CalmAn-MATLAB\utilities'));
+addpath(genpath('D:\MATLAB\CalmAn-MATLAB\deconvolution'));
+addpath('D:\MATLAB\CalmAn-MATLAB')
 gcp;                                            % start a parallel engine
 % foldername = 'F:\Test\RVKC368\180731\1';
 % foldername = 'F:\Test\RVKC368\180731\1';
@@ -22,7 +22,7 @@ numFiles = length(files);
 % register files one by one. use template obtained from file n to
 % initialize template of file n + 1; 
 
-motion_correct = true;                           % perform motion correction; registered with suite2p (this will return low amplitude)
+motion_correct = false;                           % perform motion correction; registered with suite2p (this will return low amplitude)
 non_rigid = true;                                 % flag for non-rigid motion correction
 output_type = 'h5';                               % format to save registered files
 

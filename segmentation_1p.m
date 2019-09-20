@@ -10,12 +10,12 @@ nam = neuron.select_data(nam);  %if nam is [], then select data interactively
 % -------------------------    COMPUTATION    -------------------------  %
 pars_envs = struct('memory_size_to_use', 50, ...   % GB, memory space you allow to use in MATLAB
     'memory_size_per_patch', 2.2, ...   % GB, space for loading data within one patch
-    'patch_dims', [64, 64]);  %GB, patch size
+    'patch_dims', [128, 128]);  %GB, patch size
 
 % -------------------------      SPATIAL      -------------------------  %
 gSig = 3;           % pixel, gaussian width of a gaussian kernel for filtering the data. 0 means no filtering
-gSiz = 10;          % pixel, neuron diameter
-ssub = 1;           % spatial downsampling factor
+gSiz = 15;          % pixel, neuron diameter
+ssub = 2;           % spatial downsampling factor
 with_dendrites = false;   % with dendrites or not
 if with_dendrites
     % determine the search locations by dilating the current neuron shapes
