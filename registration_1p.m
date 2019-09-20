@@ -43,31 +43,31 @@ fprintf('Finish the filtering in %f...\n', toc)
 % fprintf('Saving the data...\n')
 tic
 %% save file in small chunks
-chunksize = 1500;
-cnt = 1
-for i = 1: ceil(size(Y,3)/chunksize)
-    if cnt-1 + chunksize<size(Y,3)
-        tic
-        saveash5(Y(:,:,cnt:(cnt-1)+chunksize),h5_name);
-%         saveash5(Y_ds(:,:,cnt:(cnt-1)+chunksize),h5_name_down);
-        cnt = cnt+chunksize;
-        fprintf('Finish saving the %2.1f %5.2f', i,toc)
-        
-    else
-        tic
-        saveash5(Y(:,:,cnt:end),h5_name);
-%         saveash5(Y_ds(:,:,cnt:end),h5_name_down);
-        fprintf('Finish saving the %2.1f %5.2f', i,toc)
-    end
-end
+% chunksize = 1500;
+% cnt = 1
+% for i = 1: ceil(size(Y,3)/chunksize)
+%     if cnt-1 + chunksize<size(Y,3)
+%         tic
+%         saveash5(Y(:,:,cnt:(cnt-1)+chunksize),h5_name);
+% %         saveash5(Y_ds(:,:,cnt:(cnt-1)+chunksize),h5_name_down);
+%         cnt = cnt+chunksize;
+%         fprintf('Finish saving the %2.1f %5.2f', i,toc)
+%         
+%     else
+%         tic
+%         saveash5(Y(:,:,cnt:end),h5_name);
+% %         saveash5(Y_ds(:,:,cnt:end),h5_name_down);
+%         fprintf('Finish saving the %2.1f %5.2f', i,toc)
+%     end
+% end
 %% first try out rigid motion correction
 % exclude boundaries due to high pass filtering effects
 options_r = NoRMCorreSetParms('d1',d1,'d2',d2,'bin_width',200,'max_shift',20,'iter',1,'correct_bidir',false);
 % options_r.output_type = 'h5';
 % options_r.h5_filename =[file_name,'_registered.h5'];
 %% register using the high pass filtered data and apply shifts to original data
-tic; [M1,shifts1,template1] = normcorre_batch(h5_name,options_r); toc % register filtered data
-% tic; [M1,shifts1,template1] = normcorre_batch(Y,options_r); toc % register filtered data
+% tic; [M1,shifts1,template1] = normcorre_batch(h5_name,options_r); toc % register filtered data
+tic; [M1,shifts1,template1] = normcorre_batch(Y,options_r); toc % register filtered data
 % exclude boundaries due to high pass filtering effects
 save('registration_setting.mat','shifts1','options_r')
 % if you save the file directly in memory make sure you save it with a
