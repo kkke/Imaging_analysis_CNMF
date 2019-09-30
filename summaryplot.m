@@ -19,6 +19,7 @@ for i =1:length(datasave)
    plot(datasave(i).tuning.res/datasave(i).tuning.all,'-o')
 end
 xlim([0,6])
+ylim([0,0.5])
 ylabel('Fraction of responsive neurons')
 xlabel('Number of taste')
 legend({'Session1', 'Session2','Session3'})
