@@ -1,5 +1,5 @@
 % analyze data just for one session
-function summary_forSingleSession_v2(file) % use 0.5 s before taste delivery as baseline and use 1s before lick as baseline
+function summary_forSingleSession_v2(file) % use 0.5 s before taste delivery as baseline and use 0.5s before lick as baseline
 % summary_forSingleSession(files_path,file_names)
 fprintf('Start summarizing data for one session...\n')
 % file = 'RVKC402\181029';
