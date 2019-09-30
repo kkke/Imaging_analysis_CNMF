@@ -3,7 +3,7 @@ function resp = tasteResponse10(neuron,trial)
 % here I use the 1 s before lick intiates as the baseline to test the lick
 % response
 %% taste response
-% 1 s before taste delivery as baseline
+% 0.5 s before taste delivery as baseline
 t = 0.05;
 rw = 3.5;
 taste = {'S','M','CA','Q','W'};
