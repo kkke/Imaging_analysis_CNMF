@@ -3,18 +3,19 @@
 clear
 %% choose data
 neuron = Sources2D();
-nam = get_fullname('RVKC438_2019-08-17_avg2_reg_small.h5');          % this demo data is very small, here we just use it as an example
+nam = get_fullname('RVKC438_2019-08-17_avg2_reg.h5');          % this demo data is very small, here we just use it as an example
 nam = neuron.select_data(nam);  %if nam is [], then select data interactively
 
 %% parameters
 % -------------------------    COMPUTATION    -------------------------  %
 pars_envs = struct('memory_size_to_use', 50, ...   % GB, memory space you allow to use in MATLAB
     'memory_size_per_patch', 2.2, ...   % GB, space for loading data within one patch
-    'patch_dims', [64, 64]);  %GB, patch size
+    'patch_dims', [128, 128]);  %GB, patch size
 
 % -------------------------      SPATIAL      -------------------------  %
 gSig = 3;           % pixel, gaussian width of a gaussian kernel for filtering the data. 0 means no filtering
-gSiz = 10;          % pixel, neuron diameter
+% gSiz = 10;          % pixel, neuron diameter
+gSiz = 15;          % pixel, neuron diameter
 ssub = 1;           % spatial downsampling factor
 with_dendrites = false;   % with dendrites or not
 if with_dendrites
@@ -75,13 +76,17 @@ frame_range = [];   % when [], uses all frames
 save_initialization = false;    % save the initialization procedure as a video.
 use_parallel = true;    % use parallel computation for parallel computing
 show_init = false;   % show initialization results
-choose_params = true; % manually choose parameters
+choose_params = false; % manually choose parameters
 center_psf = true;  % set the value as true when the background fluctuation is large (usually 1p data)
 % set the value as false when the background fluctuation is small (2p)
 
 % -------------------------  Residual   -------------------------  %
-min_corr_res = 0.7;
-min_pnr_res = 6;
+% min_corr_res = 0.7;
+min_corr_res = 0.8;
+
+% min_pnr_res = 6;
+min_pnr_res = 8;
+
 seed_method_res = 'auto';  % method for initializing neurons from the residual
 update_sn = true;
 
