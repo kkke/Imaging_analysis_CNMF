@@ -1,9 +1,10 @@
 %% clear the workspace and select data
 % clear; clc; close all;
-clear
+% clear
+function segmentation_1p(filename)
 %% choose data
 neuron = Sources2D();
-nam = get_fullname('RVKC438_2019-08-17_avg2_reg.h5');          % this demo data is very small, here we just use it as an example
+nam = get_fullname(filename);          % this demo data is very small, here we just use it as an example
 nam = neuron.select_data(nam);  %if nam is [], then select data interactively
 
 %% parameters
@@ -13,9 +14,9 @@ pars_envs = struct('memory_size_to_use', 50, ...   % GB, memory space you allow 
     'patch_dims', [128, 128]);  %GB, patch size
 
 % -------------------------      SPATIAL      -------------------------  %
-gSig = 3;           % pixel, gaussian width of a gaussian kernel for filtering the data. 0 means no filtering
+gSig = 4;           % pixel, gaussian width of a gaussian kernel for filtering the data. 0 means no filtering
 % gSiz = 10;          % pixel, neuron diameter
-gSiz = 15;          % pixel, neuron diameter
+gSiz = 12;          % pixel, neuron diameter
 ssub = 1;           % spatial downsampling factor
 with_dendrites = false;   % with dendrites or not
 if with_dendrites
@@ -34,7 +35,7 @@ spatial_algorithm = 'hals_thresh';
 
 % -------------------------      TEMPORAL     -------------------------  %
 Fs = 8.3;             % frame rate
-tsub = 2;             % temporal downsampling factor
+tsub = 1;             % temporal downsampling factor
 deconv_flag = true;     % run deconvolution or not 
 deconv_options = struct('type', 'ar1', ... % model of the calcium traces. {'ar1', 'ar2'}
     'method', 'foopsi', ... % method for running deconvolution {'foopsi', 'constrained', 'thresholded'}
@@ -81,11 +82,11 @@ center_psf = true;  % set the value as true when the background fluctuation is l
 % set the value as false when the background fluctuation is small (2p)
 
 % -------------------------  Residual   -------------------------  %
-% min_corr_res = 0.7;
-min_corr_res = 0.8;
+min_corr_res = 0.7;
+% min_corr_res = 0.8;
 
-% min_pnr_res = 6;
-min_pnr_res = 8;
+min_pnr_res = 6;
+% min_pnr_res = 8;
 
 seed_method_res = 'auto';  % method for initializing neurons from the residual
 update_sn = true;
