@@ -9,9 +9,9 @@ nam = neuron.select_data(nam);  %if nam is [], then select data interactively
 
 %% parameters
 % -------------------------    COMPUTATION    -------------------------  %
-pars_envs = struct('memory_size_to_use', 50, ...   % GB, memory space you allow to use in MATLAB
-    'memory_size_per_patch', 2.2, ...   % GB, space for loading data within one patch
-    'patch_dims', [128, 128]);  %GB, patch size
+pars_envs = struct('memory_size_to_use', 100, ...   % GB, memory space you allow to use in MATLAB
+    'memory_size_per_patch', 3, ...   % GB, space for loading data within one patch
+    'patch_dims', [96, 96]);  %GB, patch size
 
 % -------------------------      SPATIAL      -------------------------  %
 gSig = 4;           % pixel, gaussian width of a gaussian kernel for filtering the data. 0 means no filtering
