@@ -4,7 +4,7 @@
 % www.miniscope.org
 function registration_1p(filename)
 % this code uses server to perform registration for 1p data
-addpath(genpath('/MATLAB/NoRMCorre'));
+addpath(genpath('/home/vincis/Data_from_Ke/NoRMCorre'));
 % clear;
 gcp;
 %% download data and convert to single precision
