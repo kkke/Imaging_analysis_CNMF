@@ -3,8 +3,8 @@
 % Example file is provided from the miniscope project page
 % www.miniscope.org
 function registration_1p(filename)
-addpath('D:\MATLAB\Imaging_CNMF')
-addpath(genpath('D:\MATLAB\NoRMCorre'));
+% this code uses server to perform registration for 1p data
+addpath(genpath('/MATLAB/NoRMCorre'));
 % clear;
 gcp;
 %% download data and convert to single precision
