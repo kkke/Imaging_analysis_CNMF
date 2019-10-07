@@ -17,7 +17,7 @@ pars_envs = struct('memory_size_to_use', 100, ...   % GB, memory space you allow
 gSig = 4;           % pixel, gaussian width of a gaussian kernel for filtering the data. 0 means no filtering
 % gSiz = 10;          % pixel, neuron diameter
 gSiz = 12;          % pixel, neuron diameter
-ssub = 1;           % spatial downsampling factor
+ssub = 2;           % spatial downsampling factor
 with_dendrites = false;   % with dendrites or not
 if with_dendrites
     % determine the search locations by dilating the current neuron shapes
@@ -35,7 +35,7 @@ spatial_algorithm = 'hals_thresh';
 
 % -------------------------      TEMPORAL     -------------------------  %
 Fs = 8.3;             % frame rate
-tsub = 1;             % temporal downsampling factor
+tsub = 2;             % temporal downsampling factor
 deconv_flag = true;     % run deconvolution or not 
 deconv_options = struct('type', 'ar1', ... % model of the calcium traces. {'ar1', 'ar2'}
     'method', 'foopsi', ... % method for running deconvolution {'foopsi', 'constrained', 'thresholded'}
@@ -67,10 +67,10 @@ merge_thr_spatial = [0.8, 0.4, -inf];  % merge components with highly correlated
 
 % -------------------------  INITIALIZATION   -------------------------  %
 K = [];             % maximum number of neurons per patch. when K=[], take as many as possible.
-min_corr = 0.8;     % minimum local correlation for a seeding pixel
-% min_corr = 0.6
-min_pnr = 8;       % minimum peak-to-noise ratio for a seeding pixel
-% min_pnr = 6;
+% min_corr = 0.8;     % minimum local correlation for a seeding pixel
+min_corr = 0.6
+% min_pnr = 8;       % minimum peak-to-noise ratio for a seeding pixel
+min_pnr = 6;
 min_pixel = gSig^2;      % minimum number of nonzero pixels for each neuron
 bd = 0;             % number of rows/columns to be ignored in the boundary (mainly for motion corrected data)
 frame_range = [];   % when [], uses all frames
