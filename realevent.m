@@ -25,7 +25,7 @@ end
 lickSpont=[];
 % find out the event which laste at least 5 frames
 for i=1:length(bouts)
-    if length(bouts{i})<5
+    if length(bouts{i})<10
        randlick=bouts{i};
        bouts{i}=[];
        lickSpont=[lickSpont randlick];
