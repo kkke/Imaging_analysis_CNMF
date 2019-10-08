@@ -84,7 +84,7 @@ for j = 1:length(neuron)
         fprintf(num2str(j))
         error('Something is wrong')
         end
-    elseif mean(test(1,:)) < mean(baseline) && mean(test(1,:))> mean(baseline)
+    elseif mean(test(1,:)) < mean(baseline) && mean(test(1,:))< mean(baseline)
         h = -1;
     elseif mean(test(1,:)) > mean(baseline) && mean(test(1,:))> mean(baseline)
         h = 1;
@@ -93,9 +93,41 @@ for j = 1:length(neuron)
     end
     neuron(j).CueRes = h;
 end
-clear baseline test p h
+clear baseline test p h temp
 
 %% lick response
 
+if isempty(find(isnan(lickIni)))
+else
+    error('Check here to add idx of no lick trials')
+end
 
+for j = 1:length(neuron)
+    for i = 1:length(lickIni) % for each trial; get the baseline
+        temp = find(trial(i).Frame>-1 & trial(i).Frame< 0); % 1 s before tone as the baseline
+        baseline(i) = mean(full(trial(i).S_trace(j,temp)));   
+    end
+    clear temp
+    for i = 1:length(lickIni) % for each trial; get the test period
+        if lickIni(i)+1 <= trial(i).taste
+            temp = find(trial(i).Frame>lickIni(i) & trial(i).Frame <lickIni(i)+1); % test period 1 s afte lick
+        else
+            temp = find(trial(i).Frame>lickIni(i) & trial(i).Frame <trial(i).taste); % before taste delivery
+        end
+        
+        test(i) = mean(full(trial(i).S_trace(j,temp))); % within 1s
+        clear temp
+    end
+    
+    [p,~] = ranksum(test,baseline);
+    if p <0.05 && mean(test)>mean(baseline)
+        h = 1;
+    elseif p <0.05 && mean(test)<mean(baseline);
+        h = -1;
+    else
+        h = 0;
+    end
+    neuron(j).LickRes = h;
+end
+clear baseline test p h
 
