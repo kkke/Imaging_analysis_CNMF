@@ -59,15 +59,21 @@ save('dataForCNMF.mat','trial','ts_frame','neuron','Coor')
 % scatter(W,ones(size(W)),'ko','filled')
 
 %% re-organize the data into trial structure
+taste = {'S','N','CA','Q','W'};
 for i = 1:length(trial)
     temp = find(ts_frame> trial(i).tone-3 & ts_frame < trial(i).tone+12);
     trial(i).Frame = ts_frame(temp)-trial(i).tone;
     trial(i).S_trace = neuron.S(:,temp);
-    trial(i).C_raw_trace = neuron.C_raw(:,temp);  
+    trial(i).C_raw_trace = neuron.C_raw(:,temp);
+    for j = 1:length(taste)
+        if ~isnan(trial(i).(taste{j}))
+            trial(i).taste = trial(i).(taste{j})(1);
+        end
+    end
 end
-neuron_data = trial2neuron5tastant_1p;
+neuron_data = trial2neuron5tastant_1p(trial);
 neuron_data = stats_1p(trial,neuron_data);
-length(find([neuron_data.W]==0))/length(neuron_data);
+length(find([neuron_data.CueRes]==0))/length(neuron_data);
 
 psth_cue(trial,6)
 psth_taste(trial,4)
