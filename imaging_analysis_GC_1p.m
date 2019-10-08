@@ -65,7 +65,10 @@ for i = 1:length(trial)
     trial(i).S_trace = neuron.S(:,temp);
     trial(i).C_raw_trace = neuron.C_raw(:,temp);  
 end
-[lickIni bout_dur] = lickIniateTime(trial);
+neuron_data = trial2neuron5tastant_1p;
+neuron_data = stats_1p(trial,neuron_data);
+length(find([neuron_data.W]==0))/length(neuron_data);
+
 psth_cue(trial,6)
 psth_taste(trial,4)
 
