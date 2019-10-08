@@ -19,15 +19,5 @@ end
 
 
 
-it = 1;
-for i = 1: length(trial)
-    if ~isnan(trial(i).S)
-        S_Taste_dF(it,:) = trial(i).Taste(n,:);
-        it =1+it;
-    end
-end
 
-
-
-%
 
