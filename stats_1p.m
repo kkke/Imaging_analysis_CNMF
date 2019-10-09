@@ -84,16 +84,18 @@ for j = 1:length(neuron)
         fprintf(num2str(j))
         error('Something is wrong')
         end
-    elseif p1 < t/2 || p2 < t/2 && mean(test(1,:)) < mean(baseline) && mean(test(1,:))< mean(baseline)
-        h = -1;
-    elseif p1 < t/2 || p2 < t/2 && mean(test(1,:)) > mean(baseline) && mean(test(1,:))> mean(baseline)
-        h = 1;
     elseif isnan(p1) && p2>=t/2
         h = 0;
     elseif isnan(p2) && p1>=t/2
         h = 0;
-    else
-        h = 2;
+    elseif p1 < t/2 || p2 < t/2 
+        if mean(test(1,:)) < mean(baseline) && mean(test(2,:))< mean(baseline)
+            h = -1;
+        elseif  mean(test(1,:)) > mean(baseline) && mean(test(2,:))> mean(baseline)
+            h = 1;    
+        else
+            h = 2;
+        end
     end
     neuron(j).CueRes = h;
 end
@@ -113,7 +115,8 @@ for j = 1:length(neuron)
     end
     clear temp
     for i = 1:length(lickIni) % for each trial; get the test period
-        if lickIni(i)+1 <= trial(i).taste
+        if isempty(trial(i).taste) || lickIni(i)+1 <= trial(i).taste
+        
             temp = find(trial(i).Frame>lickIni(i) & trial(i).Frame <lickIni(i)+1); % test period 1 s afte lick
         else
             temp = find(trial(i).Frame>lickIni(i) & trial(i).Frame <trial(i).taste); % before taste delivery
