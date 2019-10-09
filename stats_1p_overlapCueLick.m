@@ -16,7 +16,7 @@ for j = 1:length(overlap)
     end
     clear temp
     for i = 1:length(lickIni) % for each trial; get the test period
-        if lickIni(i)+1 <= trial(i).taste
+        if isempty(trial(i).taste) || lickIni(i)+1 <= trial(i).taste 
             temp = find(trial(i).Frame>lickIni(i) & trial(i).Frame <lickIni(i)+1); % test period 1 s afte lick
         else
             temp = find(trial(i).Frame>lickIni(i) & trial(i).Frame <trial(i).taste); % before taste delivery
