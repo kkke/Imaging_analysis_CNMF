@@ -10,7 +10,7 @@ for i = 1:length(id)
         
         for k = 1:size(temp_time,1)
             temp = min(find(temp_time(k,:)>0));
-            temp_take(k,:) = temp-40:1:temp+65;
+            temp_take(k,:) = temp-40:1:temp+60;
             temp_resp(k,:) = resp_amp(k,temp_take(k,:));
             temp_timenorm(k,:) = temp_time(k,temp_take(k,:)); 
         end
