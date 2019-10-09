@@ -84,10 +84,14 @@ for j = 1:length(neuron)
         fprintf(num2str(j))
         error('Something is wrong')
         end
-    elseif mean(test(1,:)) < mean(baseline) && mean(test(1,:))< mean(baseline)
+    elseif p1 < t/2 || p2 < t/2 && mean(test(1,:)) < mean(baseline) && mean(test(1,:))< mean(baseline)
         h = -1;
-    elseif mean(test(1,:)) > mean(baseline) && mean(test(1,:))> mean(baseline)
+    elseif p1 < t/2 || p2 < t/2 && mean(test(1,:)) > mean(baseline) && mean(test(1,:))> mean(baseline)
         h = 1;
+    elseif isnan(p1) && p2>=t/2
+        h = 0;
+    elseif isnan(p2) && p1>=t/2
+        h = 0;
     else
         h = 2;
     end
