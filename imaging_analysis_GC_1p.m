@@ -1,5 +1,7 @@
 %% data analysis code for 1p data
 % load imaging data
+cd('E:\MATLAB\Imaging Analysis\CNMF-E')
+cnmfe_setup
 path = 'G:\Imaging in GC\ImagingData\RVKC441\191001\1\RVKC441_191001_avg2_reg_source_extraction_reducemin06'
 cd(path)
 file = '03-Oct_21_21_21.mat';
@@ -17,7 +19,7 @@ neuron_new2 = fakeneuron_manual(neuron_new);
 
 
 % neuron_new.viewNeurons([]); 
-neuron.viewNeurons(1710,neuron.C_raw);
+neuron.viewNeurons(479,neuron.C_raw);
 Coor = neuron.show_contours(0.8);
 figure; 
 [CC,jsf] = plot_contours(neuron.A,neuron.Cn,0.1,20,[],Coor);
@@ -27,7 +29,7 @@ figure;
 %% save processed roi
 save('neural_data.mat','neuron')
 %% load Intan data
-filename = 'RVKC441_191001.rhd';
+filename = 'RVKC438_190817.rhd';
 [data,trial] = process_intan_v2(filename);
 [Frame,~] = Timing_onset_offset(data.event(7,:), data.ts, 0.5,10,0);
 % there are trials without imaging; remove those trial
@@ -60,6 +62,7 @@ save('dataForCNMF.mat','trial','ts_frame','neuron','Coor')
 
 %% re-organize the data into trial structure
 load('dataForCNMF.mat')
+%%
 taste = {'S','N','CA','Q','W'};
 for i = 1:length(trial)
     temp = find(ts_frame> trial(i).tone-3 & ts_frame < trial(i).tone+12);
@@ -78,10 +81,10 @@ neuron_data = trial2neuron5tastant_1p(trial);
 neuron_data = stats_1p(trial,neuron_data);
 % length(find([neuron_data.CueRes]==0))/length(neuron_data);
 % check each individual neuron
-i=1182;
-psth_cue(trial,i)
-psth_taste(trial,i)
-psth_lick(trial,i)
+% i=5;
+% psth_cue(trial,i)
+% psth_taste(trial,i)
+% psth_lick(trial,i)
 % imporse more strict criteria. check the overlap between cue and lick
 % response
 k=1;
