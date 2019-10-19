@@ -1,4 +1,4 @@
-function [lickIni bout_dur] = lickIniateTime(trial)
+function [lickIni bout_dur iti] = lickIniateTime(trial)
 for i = 1:length(trial)
     clear bouts du
     tone = trial(i).tone;
@@ -13,6 +13,7 @@ for i = 1:length(trial)
         if isempty(temp)
             lickIni(i) = licks(1);
             bout_dur(i) = licks(end)-licks(1);
+            iti(i)     = mean(licks);
         else
             for j=1:length(temp)
                 if j==1;
@@ -33,6 +34,7 @@ for i = 1:length(trial)
             end
             bouts=bouts(~cellfun('isempty',bouts)); % all the real bouts       
             lickIni(i) = licks(min(bouts{1}));
+            iti(i)     = mean(diff(licks(bouts{1})));
             if length(bouts)==1
                 bout_dur(i) = licks(bouts{1}(end))-licks(bouts{1}(1));
             else
