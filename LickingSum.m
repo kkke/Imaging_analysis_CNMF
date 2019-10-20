@@ -21,4 +21,15 @@ for i = 1:length(taste)
     summaryData.(taste{i}).bout_dur = bout_dur(summaryData.(taste{i}).idx);
     summaryData.(taste{i}).iti      = iti(summaryData.(taste{i}).idx);
 end
+%%
 save('summayLicking.mat','summaryData')
+temp = summaryData;
+%%
+cd('G:\Imaging in GC\ImagingData\SummaryBehavior')
+if exist([summaryData.animal,'.mat'])== 2
+    load([summaryData.animal,'.mat'])
+    summaryData = [summaryData,temp];
+else
+    save([summaryData.animal,'.mat'],'summaryData')
+end
+cd('G:\Imaging in GC\ImagingData')   
