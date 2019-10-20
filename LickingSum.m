@@ -29,6 +29,7 @@ cd('G:\Imaging in GC\ImagingData\SummaryBehavior')
 if exist([summaryData.animal,'.mat'])== 2
     load([summaryData.animal,'.mat'])
     summaryData = [summaryData,temp];
+    save([summaryData(1).animal,'.mat'],'summaryData')
 else
     save([summaryData.animal,'.mat'],'summaryData')
 end
