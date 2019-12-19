@@ -5,9 +5,9 @@
 % clear
 % animalID = 'RVKC377';
 % date     = '180821';
-function imaging_analysis_GC_2p(animalID,date)
+function imaging_analysis_GC_2p(animalID,date,path)
 %%
-path = 'F:\Imaging in GC\ImagingData\';
+% path = 'F:\Imaging in GC\ImagingData\';
 % path = 'G:\Imaging in GC\ImagingData\'; % for data stored in G disk
 cd([path,animalID,'\',date,'\1\'])
 file = 'data_CNMF.mat';
