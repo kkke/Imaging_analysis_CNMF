@@ -41,7 +41,7 @@ xlim([0,6])
 xticklabels({'','1','2','3','4','5',''})
 xlabel('Taste Number')
 ylabel('Fraction of taste-evoked response')
-ylim([0,0.5])
+ylim([0,0.6])
 % print('TasteResponse-Tuning','-dpdf')
 % legend('2.5 SD')
 % xlim([0.5,5.5])
@@ -78,8 +78,17 @@ for i = 1:length(id)
         for k = 1:size(temp_time,1)
             temp = min(find(temp_time(k,:)>0));
             temp_take(k,:) = temp-22:1:temp+21;
+            if temp+21>60
+                 
+                warning('Taste delivery very late; padding zeros')
+                temp_resp_temp = resp_amp(k,temp_take(k,1):60);
+                temp_resp(k,:) = [temp_resp_temp,zeros(1,temp_take(k,end)-60)]; % padding zeros
+                temp_time_temp = temp_time(k,temp_take(k,1):60);
+                temp_timenorm(k,:) = [temp_time_temp,temp_time_temp(end)+ mean(diff(temp_time_temp))*[1:1:temp_take(k,end)-60]];
+                 else
             temp_resp(k,:) = resp_amp(k,temp_take(k,:));
             temp_timenorm(k,:) = temp_time(k,temp_take(k,:)); 
+                 end
         end
         time.(id{i}) = mean(temp_timenorm,1);
         tasteid.(id{i})(j,:) = mean(temp_resp,1);
@@ -96,7 +105,7 @@ for i = 1:length(id)
     % try to sort the neurons
     indd = find(time.(id{i})>0 & time.(id{i})<3.5);
     for j = 1:size(tasteid.(id{i}))
-        rank(j) = length(find(tasteid.(id{i})(j,indd)>0.01));
+        rank(j) = length(find(tasteid.(id{i})(j,indd)>0.1));
     end
     [B,I]=sort(rank);
     for j=1:size(tasteid.(id{i}),1)
@@ -106,7 +115,7 @@ for i = 1:length(id)
     figure
     imagesc(time.(id{i}),[], flipud(d))
     title(id{i})
-    caxis([0,0.1])
+    caxis([-0.1,0.5])
     xlim([-3.5,3.5])
     colorbar
     %     print(['TasteResponse-',id{i}],'-dpdf')
@@ -122,17 +131,17 @@ for i = 1:length(id)
     hold on
 end
 legend([h(1),h(2),h(3),h(4),h(5)],id)
-xlim([-4.5,6.5])
-ylim([0,0.03])
+xlim([-3.5,3.5])
+ylim([-0.1,0.3])
 xlabel('Time')
 ylabel('dF/F')
 % print('TasteResponse-avg','-dpdf')
 %% plot cue response
 cue_resp = neuron_data(ind_cue);
 for i = 1:length(cue_resp)
-    for j = 1:length(trial)
-        cue_resp(i).trace(j,:) = trial(j).S_trace(ind_cue(i),1:124);
-        cue_resp(i).framT(j,:)      =trial(j).Frame(1:124);
+    for j = 1:size(neuron_data(ind_cue(i)).C_raw_trace,1)
+        cue_resp(i).trace(j,:) = neuron_data(ind_cue(i)).C_raw_trace(j,:);
+        cue_resp(i).framT(j,:)      =neuron_data(ind_cue(i)).framT(j,:);
     end
     cue(i,:) = mean(full(cue_resp(i).trace));
     time.cue(i,:) = mean(cue_resp(i).framT);
@@ -148,14 +157,14 @@ boundedline(time.cue, mean(cue),(std(cue)./sqrt(size(cue,1)))','alpha','b');
 xlim([-1.5,4.5])
 xlabel('Time')
 ylabel('dF/F')
-ylim([0,0.03])
+ylim([0,0.3])
 % print('ToneResponse','-dpdf')
 
 
 % try to sort the neurons
 indd = find(time.cue>0 & time.cue<2);
 for j = 1:size(cue)
-    rank(j) = length(find(cue(j,indd)>0.015));
+    rank(j) = length(find(cue(j,indd)>0.1));
 end
 [B,I]=sort(rank);
 for j=1:size(cue,1)
@@ -166,44 +175,45 @@ figure
 imagesc(time.cue,[], flipud(d))
 title('Tone')
 xlim([-1.5,4.5])
-caxis([0,0.05])
+caxis([0,0.5])
 colorbar
 % print('ToneResponse-colormap','-dpdf')
 clear d rank
-%% plot lick response
-[time.lick , lick] = psth_lick_pop(trial,ind_lick);
+
+ %% plot lick response
+% [time.lick , lick] = psth_lick_pop(trial,ind_lick);
+% % figure;
+% % imagesc(time.lick,[],lick)
+% % xlim([-2,4])
+% % caxis([-0.2,1.2])
 % figure;
-% imagesc(time.lick,[],lick)
+% boundedline(time.lick, mean(lick),(std(lick)./sqrt(size(lick,1)))','alpha','b');
 % xlim([-2,4])
-% caxis([-0.2,1.2])
-figure;
-boundedline(time.lick, mean(lick),(std(lick)./sqrt(size(lick,1)))','alpha','b');
-xlim([-2,4])
-xlabel('Time')
-ylabel('dF/F')
-ylim([-0,0.05])
-% print('LickResponse_avg','-dpdf')
-% try to sort the neurons
-indd = find(time.lick>0 & time.lick<1);
-for j = 1:size(lick)
-    rank(j) = length(find(lick(j,indd)>0.02));
-end
-[B,I]=sort(rank);
-for j=1:size(lick,1)
-    r=I(j);
-    d(j,:)=lick(r,:);
-end
-figure
-imagesc(time.lick,[], flipud(d))
-title('Lick')
-xlim([-2,4])
-caxis([0,0.05])
-colorbar
-% print('LickResponse-colormap','-dpdf')
+% xlabel('Time')
+% ylabel('dF/F')
+% ylim([-0,0.05])
+% % print('LickResponse_avg','-dpdf')
+% % try to sort the neurons
+% indd = find(time.lick>0 & time.lick<1);
+% for j = 1:size(lick)
+%     rank(j) = length(find(lick(j,indd)>0.02));
+% end
+% [B,I]=sort(rank);
+% for j=1:size(lick,1)
+%     r=I(j);
+%     d(j,:)=lick(r,:);
+% end
+% figure
+% imagesc(time.lick,[], flipud(d))
+% title('Lick')
+% xlim([-2,4])
+% caxis([0,0.05])
+% colorbar
+% % print('LickResponse-colormap','-dpdf')
 
 clear d rank
 %% re-summarized taste response for clusting
-[taste_time, data] = psth_taste_pop(neuron_data,ind_taste);
+[taste_time, data] = psth_taste_pop_2p(neuron_data,ind_taste);
 for i = 1:length(ind_taste)
     idx = find(taste_time.S>0 & taste_time.S <3.5);
     resp_ap(i,1) = max(data.S(i,idx));
@@ -226,6 +236,7 @@ resp_ap = resp_ap.*temp_taste; % taste response for each neuron.
 % cutoff = median([Z(end-8,3) Z(end-8,3)]);
 % dendrogram(Z,0,'ColorThreshold',cutoff)
 resp_ap(find(mean(resp_ap,2)<=0),:)=[];
+[T, outperm] = hierarchical_cluster(resp_ap)
 % Clusters = hierarcluster(resp_ap);
 % print('Cluster_dendrogram','-dpdf')
 %% plot the normalized responses
@@ -241,7 +252,7 @@ resp_ap(find(mean(resp_ap,2)<=0),:)=[];
 %     errorbar(mean_a,sem_a)
 %     title(['Cluster ',num2str(i)])
 %     ylim([0,1])
-%     print(['Cluster_C',num2str(i)],'-dpdf')
+% %     print(['Cluster_C',num2str(i)],'-dpdf')
 % end
 %% Let's calculate the entropy H = -k *sum (p * log10(p))
 % k = 1/log10(5);
@@ -292,7 +303,7 @@ ylim([0,0.3])
 ylabel('Fraction of best taste')
 % print('Best taste','-dpdf')
 %% spatial map
-spatialMap_1p(neuron,Coor,ind_cue,ind_lick,ind_taste)
+% spatialMap_1p(neuron,Coor,ind_cue,ind_lick,ind_taste)
 spatialMap_1p_v2(neuron,Coor,neuron_data)
 spatialMap_1p_v3(neuron,Coor,neuron_data, best, ind_taste)
 %%
@@ -304,19 +315,28 @@ spatialMap_1p_v3(neuron,Coor,neuron_data, best, ind_taste)
 % bar(amp(1,:))
 % hold on
 % errorbar(amp(1,:),amp(2,:))
-% for i = 1:length(id)
-%     amp2(1,i) = mean(resp_ap(find(resp_ap(:,i)~=0),i));
-%     amp2(2,i) = std(resp_ap(find(resp_ap(:,i)~=0),i))./sqrt(size(resp_ap(find(resp_ap(:,i)~=0),i),1));   
-% end
+for i = 1:length(id)
+    amp2(1,i) = mean(resp_ap(find(resp_ap(:,i)~=0),i));
+    amp2(2,i) = std(resp_ap(find(resp_ap(:,i)~=0),i))./sqrt(size(resp_ap(find(resp_ap(:,i)~=0),i),1));   
+end
 % 
-% figure;
-% bar(amp2(1,:))
-% hold on
-% errorbar(amp2(1,:),amp2(2,:))
+figure;
+bar(amp2(1,:))
+hold on
+errorbar(amp2(1,:),amp2(2,:))
 % ylim([0,0.4])
-% ylabel('Evoked response(dF/F)')
-% tasteLabel = {'S','N','CA','Q','W'};
-% set(gca,'xticklabel',tasteLabel)
+ylabel('Evoked response(dF/F)')
+tasteLabel = {'S','N','CA','Q','W'};
+set(gca,'xticklabel',tasteLabel)
+y =[];
+label =[];
+for i = 1:5
+    idx_temp = find(resp_ap(:,i)>0);
+    temp_t = resp_ap(idx_temp,i);
+    y = [y;temp_t];
+    label = [label;i*ones(size(temp_t))];
+end
+[p,tbl]= anova1(y,label)
 % print('Evoke_response','-dpdf')
 % %% 
 % clear taste_sp

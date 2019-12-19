@@ -34,7 +34,7 @@ for j = 1:length(taste)
         else
             neuron(i).(taste{j}) = 0;
         end
-        clear tasteTest I temp_test time_taste baseline temp_taste
+        clear tasteTest I temp_test time_taste baseline temp_taste indTest
     end
 end
 
@@ -46,9 +46,21 @@ clear p h
 t = 0.05;
 rw = 2;
 [lickIni,~] = lickIniateTime(trial);
+iter =[];
+for k = 1:length(lickIni) % reject trials with licking within 1 s of auditory cue
+    if lickIni(k) < 1
+        iter = [iter,k];
+    end
+end
+lickIni(iter)=[]; % remove the trials that the lick is too close to the onset of tone
+trial(iter)  =[];
+
 if isempty(find(isnan(lickIni)))
 else
-    error('Check here to add idx of no lick trials')
+    warning('Check here to add idx of no lick trials')
+    idx_temp = find(isnan(lickIni));
+    lickIni(idx_temp)=[]; % remove the trials that the lick is too close to the onset of tone
+    trial(idx_temp)  =[];
 end
 
 for j = 1:length(neuron)
@@ -98,8 +110,8 @@ for j = 1:length(neuron)
         end
     end
     neuron(j).CueRes = h;
+    clear baseline test p h temp
 end
-clear baseline test p h temp
 
 %% lick response
 
@@ -135,6 +147,7 @@ for j = 1:length(neuron)
         h = 0;
     end
     neuron(j).LickRes = h;
+    clear baseline test p h
+
 end
-clear baseline test p h
 

@@ -1,18 +1,26 @@
-function spatialMap_1p_v2(neuron,Coor,neuron_data)
-%% do some plotting
+function spatialMap_1p_v4(neuron,Coor,neuron_data)
+%% do some plotting-for narrowly tuned neurons
 % plot the spatial map
 % f = fieldnames(data_session);
 % taste =rmfield(data_session,f(6:end));
 % taste = cell2mat(squeeze(struct2cell(taste)))';
 % taste(find(taste==-1))=0;
 taste = {'S','N','CA','Q','W'};
+for j = 1:length(taste)
+    for i = 1:length(neuron_data)
+        neuron_data_temp(i,j) = neuron_data(i).(taste{j});
+    end
+end
+neuron_data_temp(neuron_data_temp<0)=0;
+idx_narrow = find(sum(neuron_data_temp,2)==1);
 for j = 1:5
     fig = figure;
     imshow(neuron.Cn,[0.05,1]);
     ind2 = find([neuron_data.(taste{j})]==1);
+    ind = intersect(idx_narrow,ind2);
     hold on
     for i = 1:length(neuron_data)
-        if ~isempty(find(ind2 ==i))
+        if ~isempty(find(ind ==i))
             plot(Coor{i}(1,:), Coor{i}(2,:), 'r', 'LineWidth', 1)
             hold on
             

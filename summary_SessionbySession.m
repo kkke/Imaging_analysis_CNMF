@@ -28,6 +28,21 @@ clearvars -except data
 %% summarize all session data
 clear data_summary_raw data_summary_dec
 sessions = {'session1','session2','session3'};
+for i = 1:4
+    for j = 2:length(sessions)
+    animalID = data.animalID{i};
+    date     = data.(sessions{j}){i};
+    temp(i).disk = data.drive{i}(1:2);
+    temp(i).animalID = animalID;
+    temp(i).date     = date;
+    imaging_analysis_GC_2p(animalID,date,data.drive{i})
+    close all
+    fprintf('finishing processing session %0.1f\n',i)
+    end
+end
+%%
+clear data_summary_raw data_summary_dec
+sessions = {'session1','session2','session3'};
 for j = 1:length(sessions)
     data_summary_raw.(sessions{j}) =[];
     data_summary_dec.(sessions{j}) =[];

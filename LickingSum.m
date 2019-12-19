@@ -2,7 +2,8 @@
 %% Step 1: load data from Intan
 clear
 file = dir('*.rhd');
-filename = file.name
+% for k = 1:length(file)
+filename = file(1).name
 [data,trial] = process_intan_v2(filename);
 [lickIni bout_dur iti] = lickIniateTime(trial);
 summaryData. animal = filename(1:7);
@@ -14,8 +15,8 @@ for i = 1:length(taste)
     summaryData.(taste{i}).idx =[];
     for j = 1:length(trial)
         if ~isnan(trial(j).(taste{i}))
-         summaryData.(taste{i}).idx = [summaryData.(taste{i}).idx,j];
-        end        
+            summaryData.(taste{i}).idx = [summaryData.(taste{i}).idx,j];
+        end
     end
     summaryData.(taste{i}).lickIni = lickIni(summaryData.(taste{i}).idx);
     summaryData.(taste{i}).bout_dur = bout_dur(summaryData.(taste{i}).idx);
@@ -33,4 +34,8 @@ if exist([summaryData.animal,'.mat'])== 2
 else
     save([summaryData.animal,'.mat'],'summaryData')
 end
-cd('G:\Imaging in GC\ImagingData')   
+% cd('G:\Imaging in GC\ImagingData')
+    cd('F:\Imaging in GC\ImagingData')
+%     cd('F:\Imaging in GC\ImagingData\RVKC404\Behavioral data')
+%     clearvars -except file k
+% end

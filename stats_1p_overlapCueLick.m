@@ -1,4 +1,4 @@
-function resp = stats_1p_overlapCueLick(trial,neuron, overlap)
+function resp = stats_1p_overlapCueLick(trial, overlap)
 
 [lickIni,~] = lickIniateTime(trial);
 
@@ -6,7 +6,10 @@ function resp = stats_1p_overlapCueLick(trial,neuron, overlap)
 
 if isempty(find(isnan(lickIni)))
 else
-    error('Check here to add idx of no lick trials')
+    warning('Check here to add idx of no lick trials')
+    idx_temp = find(isnan(lickIni));
+    lickIni(idx_temp)=[]; % remove the trials that the lick is too close to the onset of tone
+    trial(idx_temp)  =[];
 end
 
 for j = 1:length(overlap)
@@ -35,6 +38,6 @@ for j = 1:length(overlap)
         h = 0;
     end
     resp(j).LickRes = h;
+    clear baseline test p h
 end
-clear baseline test p h
 

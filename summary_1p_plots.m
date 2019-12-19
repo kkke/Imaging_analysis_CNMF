@@ -4,7 +4,7 @@ temp = [];
 for i = 1:length(data)
     cd([data(i).disk,'\Imaging in GC\ImagingData\',data(i).animalID,'\',data(i).date,'\1\SessionSummary',])
     load([data(i).animalID,'_',data(i).date,'.mat'])
-%     neuron_data = trial2neuron5tastant_2p_v2(neuron_data,trial);
+    neuron_data = trial2neuron5tastant_2p_v2(neuron_data,trial);
     for j = 1:length(neuron_data)
         neuron_data(j).Coor = Coor{j};
         for k = 1:length(trial)
@@ -16,19 +16,24 @@ for i = 1:length(data)
     temp = [temp,neuron_data];
     clear neuron_data
 end
-save('allImaging1p_S.mat','temp')
+save('allImaging1p_C_raw.mat','temp')
 temp = neuron_data;
 summary_1p_allData(temp)
 %% spatial map for each individual session
 neuron.Cn = Cn;
 spatialMap_1p_v2(neuron,Coor,neuron_data)
+% spatialMap_1p_v4(neuron,Coor,neuron_data)
+summary_1p(trial,neuron_data, neuron,Coor)
+spatialMap_1p_best(neuron,Coor,neuron_data,1) % plot neurons with best response
 %%
 for i = 1:length(data)
     cd([data(i).disk,'\Imaging in GC\ImagingData\',data(i).animalID,'\',data(i).date,'\1\SessionSummary',])
     load([data(i).animalID,'_',data(i).date,'.mat'])
-%     distance(i) = spatialMap_2p_v2_distance(Coor,neuron_data);
-    distance(i) = spatialMap_1p_distance_best(Coor,neuron_data);
+    distance(i) = spatialMap_2p_v2_distance(Coor,neuron_data);
+%     distance(i) = spatialMap_1p_distance_best(Coor,neuron_data,1);
+    fprintf('Process the session %d\n',i)
 end
+% taste = {'CueRes','LickRes'};
 taste ={'S','N','CA','Q','W'};    
 for i = 1:length(taste)
     distance_sum.(taste{i})=[];
@@ -37,34 +42,28 @@ end
     
 for i = 1:length(taste)
     for j = 1:length(distance)
-        distance_sum.(taste{i})= [distance_sum.(taste{i}),distance(j).(taste{i})];
-        distance_sum.([taste{i},'_pseudo'])=[distance_sum.([taste{i},'_pseudo']),distance(j).([taste{i},'_pseudo'])];
+        if isnan(distance(j).(taste{i}))
+            distance_sum(j).(taste{i})= NaN;
+            distance_sum(j).([taste{i},'_pseudo'])=NaN;
+            distance_sum(j).([taste{i},'_pvalue'])=NaN;
+        else
+            distance_sum(j).(taste{i})= mean(distance(j).(taste{i}));
+            for k = 1:length(distance(j).([taste{i},'_pseudo']))
+                temp_distance(k) = mean(distance(j).([taste{i},'_pseudo']){k});
+            end
+            distance_sum(j).([taste{i},'_pseudo'])=temp_distance;
+            clear temp_distance
+            distance_sum(j).([taste{i},'_pvalue'])  = 1-length(find(distance_sum(j).([taste{i},'_pseudo'])>= distance_sum(j).(taste{i})))/1000;
+        end
     end
 end
 
 %%
-save('pairwise_distance.mat','forplot','distance_sum')
-f = taste;
-for i = 1:5
-    figure
-    sumDistTaste.(f{i})= [distance_sum.(f{i})]*1.4; % convert pixel to distance in um
-    sumDistTaste.([f{i},'_pseudo'])= [distance_sum.([taste{i},'_pseudo'])]*1.4;
-    h = histogram(sumDistTaste.(f{i}));
-    h.Normalization = 'probability';
-    h.BinWidth = 20;
-    hold on
-    h1 = histogram(sumDistTaste.([f{i},'_pseudo']));
-    h1.Normalization = 'probability';
-    h1.BinWidth = 20;
-    title(f{i})
-    [h,p]=kstest2(sumDistTaste.(f{i}),sumDistTaste.([f{i},'_pseudo']))
-    ylim([0,0.05])
-    xlim([0,2000])
-end
+
 
 for i = 1:length(distance)
     for j = 1:length(taste)
-        normalize_dis(i).(taste{j}) = mean(distance(i).(taste{j}))/mean(distance(i).([taste{j},'_pseudo']));
+        normalize_dis(i).(taste{j}) = mean(distance_sum(i).(taste{j}))/mean(distance_sum(i).([taste{j},'_pseudo']));
     end
 end
 

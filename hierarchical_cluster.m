@@ -5,6 +5,12 @@ T = cluster(Z,'maxclust',9);
 cutoff = median([Z(end-8,3) Z(end-7,3)]);
 figure
 [H,tt,outperm] = dendrogram(Z,0,'ColorThreshold',cutoff);
+figure;
+for i = 1:5
+subplot(5,1,i)
+bar(resp_ap_scaled(outperm,i))
+hold on
+end
 %% plot the normalized responses
 for i = 1:9
     norResp(i).ap = resp_ap(find(T==i),:);

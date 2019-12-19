@@ -1,4 +1,4 @@
-function resp = stats_1p_overlapTasteLick(trial,neuron, overlap)
+function resp = stats_1p_overlapTasteLick(trial, overlap)
 
 %% Taste response
 taste         = {'S', 'N', 'CA','Q','W'};

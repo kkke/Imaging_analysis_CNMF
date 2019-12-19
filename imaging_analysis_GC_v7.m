@@ -38,8 +38,9 @@ end
 %% Smooth the time-series with gaussian kerner
 for i = 1:length(trial)
     for j = 1:size(trial(1).trace,1)
-        trial(i).traceSmooth_dF(j,:) = gaussmooth(trial(i).trace(j,:),5,1);
-    end  
+        %         trial(i).traceSmooth_dF(j,:) = gaussmooth(trial(i).trace(j,:),5,1);
+        trial(i).traceSmooth_dF(j,:) = trial(i).trace(j,:)';
+    end
 end
 %% calculate the dF/F0; F0 is [-1 0] s before the tone
 % for i = 1:length(trial)

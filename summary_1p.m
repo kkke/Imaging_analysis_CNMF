@@ -15,7 +15,7 @@ all_num = sum(taste_all,2); % get the evoked response
 evoke_ratio = length(find(all_num>0))/length(all_num);
 taste_num = sum(taste_all(:,1:5),2);
 ind_taste      = find(taste_num>0);
-ind_cue  = find(taste(:,6)==1); % cue response
+ind_cue  = find(taste(:,6)>=1); % cue response
 ind_lick = find(taste(:,7)==1); % lick response
 lick_taste= intersect(ind_taste,ind_lick); % starts to clarify the lick response and taste response
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -171,37 +171,37 @@ colorbar
 % print('ToneResponse-colormap','-dpdf')
 clear d rank
 %% plot lick response
-[time.lick , lick] = psth_lick_pop(trial,ind_lick);
+% [time.lick , lick] = psth_lick_pop(trial,ind_lick);
 % figure;
 % imagesc(time.lick,[],lick)
 % xlim([-2,4])
 % caxis([-0.2,1.2])
-figure;
-boundedline(time.lick, mean(lick),(std(lick)./sqrt(size(lick,1)))','alpha','b');
-xlim([-2,4])
-xlabel('Time')
-ylabel('dF/F')
-ylim([-0,0.05])
-% print('LickResponse_avg','-dpdf')
-% try to sort the neurons
-indd = find(time.lick>0 & time.lick<1);
-for j = 1:size(lick)
-    rank(j) = length(find(lick(j,indd)>0.02));
-end
-[B,I]=sort(rank);
-for j=1:size(lick,1)
-    r=I(j);
-    d(j,:)=lick(r,:);
-end
-figure
-imagesc(time.lick,[], flipud(d))
-title('Lick')
-xlim([-2,4])
-caxis([0,0.05])
-colorbar
-% print('LickResponse-colormap','-dpdf')
-
-clear d rank
+% figure;
+% boundedline(time.lick, mean(lick),(std(lick)./sqrt(size(lick,1)))','alpha','b');
+% xlim([-2,4])
+% xlabel('Time')
+% ylabel('dF/F')
+% ylim([-0,0.05])
+% % print('LickResponse_avg','-dpdf')
+% % try to sort the neurons
+% indd = find(time.lick>0 & time.lick<1);
+% for j = 1:size(lick)
+%     rank(j) = length(find(lick(j,indd)>0.02));
+% end
+% [B,I]=sort(rank);
+% for j=1:size(lick,1)
+%     r=I(j);
+%     d(j,:)=lick(r,:);
+% end
+% figure
+% imagesc(time.lick,[], flipud(d))
+% title('Lick')
+% xlim([-2,4])
+% caxis([0,0.05])
+% colorbar
+% % print('LickResponse-colormap','-dpdf')
+% 
+% clear d rank
 %% re-summarized taste response for clusting
 [taste_time, data] = psth_taste_pop(neuron_data,ind_taste);
 for i = 1:length(ind_taste)

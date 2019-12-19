@@ -17,7 +17,7 @@ for j = 1:5
             plot(Coor{i}(1,:), Coor{i}(2,:), 'r', 'LineWidth', 1)
             % red means cue response
             hold on
-%             text(data_session(i).centroid(2), data_session(i).centroid(1),num2str(i),'Color',[1,0,0],'FontSize',8)
+            text(mean(Coor{i}(1,:)), mean(Coor{i}(2,:)),num2str(i),'Color',[1,0,1],'FontSize',12)
         else
 %             plot(Coor{i}(1,:), Coor{i}(2,:), 'y', 'LineWidth', 1)
 %             text(data_session(i).centroid(2), data_session(i).centroid(1),num2str(i),'Color',[0,1,1],'FontSize',8)

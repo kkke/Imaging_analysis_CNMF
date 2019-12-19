@@ -61,9 +61,12 @@ trial(iter)  =[];
 
 if isempty(find(isnan(lickIni)))
 else
-    error('Check here to add idx of no lick trials')
+    warning('Check here to add idx of no lick trials')
+    idx_temp = find(isnan(lickIni));
+    lickIni(idx_temp)=[]; % remove the trials that the lick is too close to the onset of tone
+    trial(idx_temp)  =[];
 end
-
+clear idx_temp
 for j = 1:length(neuron)
     for i = 1:length(lickIni) % for each trial; get the baseline
         temp = find(trial(i).Frame>-1 & trial(i).Frame< 0); % 1 s before tone as the baseline
@@ -80,8 +83,12 @@ for j = 1:length(neuron)
         if temp(end)> temp_1s(end)
             test(1,i) = mean(full(trial(i).S_trace(j,temp_1s))); % within 1s
             test(2,i) = mean(full(trial(i).S_trace(j,setdiff(temp,temp_1s)))); % more than 1s
+        elseif temp(end)== temp_1s(end)
+            test(1,i) = mean(full(trial(i).S_trace(j,temp_1s)));
+            test(2,i) = mean(full(trial(i).S_trace(j,temp_1s)));
+            warning('Check here to include more situations: lick within 1 s of tone')
         else
-            error('Check here to include more situations: lick within 1 s of tone')
+            error('something is wroing')
         end
         clear temp
     end
