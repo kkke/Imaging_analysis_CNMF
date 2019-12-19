@@ -1,10 +1,13 @@
 clear
 load('lastImagingSession_1p.mat')
+% the following is to re-organize the data; there are two different traces:
+% one is for deconvolved, and the other is for raw traces;
+% 
 temp = [];
 for i = 1:length(data)
     cd([data(i).disk,'\Imaging in GC\ImagingData\',data(i).animalID,'\',data(i).date,'\1\SessionSummary',])
     load([data(i).animalID,'_',data(i).date,'.mat'])
-    neuron_data = trial2neuron5tastant_2p_v2(neuron_data,trial);
+%     neuron_data = trial2neuron5tastant_2p_v2(neuron_data,trial);
     for j = 1:length(neuron_data)
         neuron_data(j).Coor = Coor{j};
         for k = 1:length(trial)
