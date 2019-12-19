@@ -45,4 +45,16 @@ The analysis pipeline is as following:
    - CellAlign_test.m  is used as a test script for cell registration with CellReg and CNMF
    - Step 1: run CellAlign_v1. It can re-organize the data to retrieve the spatial footprints for each session; CellReg package needs the spatial footprints for each neurons which is NxMxK matrix, the variable called A_keep which is returned by batch_CNMF contains the information, but you need to reshape it. 
    - Step 2: run the CellReg.m from the CellReg package; you probably need to play with some parameters to get it work with your data
-   
+
+# Imaging_analysis_CNMF_widefield
+This imaging analysis is based on the CNMF-E package https://github.com/zhoupc/CNMF_Ethe and the NoRMCorre algorithm https://github.com/flatironinstitute/NoRMCorre.
+The analysis pipeline is as following:
+1. Open the avi file (16.6 Hz) with FIJI (ImageJ),and downsampled to 8.3 Hz (Using group Z-projection), and save the file as .avi file
+2. Upload the downsampled avi file to server and motion correct it with the registration_1p.m; it will save the registered video as .hd5 file; you also need to save a small file, for instance only including 1000 frames, to visualize the registration result.
+3. Use the server and run the segmentation_1p.m to automatically extract ROIs and calcium traces.
+4. Use the imaging_analysis_GC_1p.m to analyze the registered data; you need to run the code line by line; there are tutorials inside the code.
+
+After you perform the above analysis, now you can summarize data recorded from different animals.
+1. 
+
+
