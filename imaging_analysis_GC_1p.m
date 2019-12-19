@@ -2,23 +2,26 @@
 % load imaging data
 cd('E:\MATLAB\Imaging Analysis\CNMF-E')
 cnmfe_setup
+% load the path of your data
 animalID = 'RVKC441';
 date = '191001';
 path = ['G:\Imaging in GC\ImagingData\',animalID,'\',date,'\1'];
 cd(path)
-file = '03-Oct_21_21_21.mat';
+file = '03-Oct_21_21_21.mat'; % example data
 load(file)
-% remove fake neurons
+% automatically remove fake neurons
 [fakeneuron,neuron_new] = detectfake(neuron);
 
 % view neurons
 % i = 1;
-neuron_new.save_neurons(); 
+% neuron_new.save_neurons(); 
 
 % mannully clear the fake neurons
 
-neuron_new2 = fakeneuron_manual(neuron_new);
-
+% neuron_new2 = fakeneuron_manual(neuron_new); % this requires you manully
+% delete neurons in a foler; recently I did not use this, I directly used
+% the following line of code of doing it.
+neuron.viewNeurons([],neuron.C_raw);
 
 % neuron_new.viewNeurons([]); 
 neuron.viewNeurons(4,neuron.C_raw);
@@ -37,8 +40,10 @@ save('neural_data.mat','neuron')
 filename = 'RVKC441_190923.rhd';
 
 [data,trial] = process_intan_v2(filename);
-[Frame,~] = Timing_onset_offset(data.event(7,:), data.ts, 0.5,10,0);
+[Frame,~] = Timing_onset_offset(data.event(7,:), data.ts, 0.5,10,0); % the frame signal is the 7th.
 % there are trials without imaging; remove those trial
+
+% remove trials that do not have enough imaging frames.
 k=1;
 for i = 1:length(trial)
     if isempty(trial(i).Frame) || length(trial(i).Frame)<50
@@ -50,7 +55,7 @@ trial(temp)=[];
 clear temp
 
 % re-calculate the tiemstamps for frames; there is a 2-frame average to the
-% data
+% imaging data
 for i = 1: floor(length(Frame)/2)
     ts_frame(i) = mean(Frame(2*i-1:2*i));
 end
@@ -86,7 +91,7 @@ load('dataForCNMF.mat')
 %%
 taste = {'S','N','CA','Q','W'};
 for i = 1:length(trial)
-    temp = find(ts_frame> trial(i).tone-3 & ts_frame < trial(i).tone+12);
+    temp = find(ts_frame> trial(i).tone-3 & ts_frame < trial(i).tone+12); % align data to the tone within [-3s,12s]
     trial(i).Frame = ts_frame(temp)-trial(i).tone;
     trial(i).S_trace = neuron.S(:,temp);
     trial(i).C_raw_trace = neuron.C_raw(:,temp);
@@ -99,7 +104,7 @@ end
 % convert trial structure to neuron structure
 neuron_data = trial2neuron5tastant_1p(trial);
 % stats
-neuron_data = stats_1p(trial,neuron_data);
+neuron_data = stats_1p(trial,neuron_data); % only use deconvolved activity to infer the responses
 % length(find([neuron_data.CueRes]==0))/length(neuron_data);
 % check each individual neuron
 % i=5;
@@ -151,7 +156,7 @@ if exist('overlap_tasteLick') == 1
     end
 else
 end
-%%
+%% store the processed data
 mkdir('SessionSummary')
 cd SessionSummary
 Cn = neuron.Cn;
