@@ -55,6 +55,7 @@ The analysis pipeline is as following:
 4. Use the imaging_analysis_GC_1p.m to analyze the registered data; you need to run the code line by line; there are tutorials inside the code.
 
 After you perform the above analysis, now you can summarize data recorded from different animals.
-1. 
+1. use the summary_1p_plots.m to summarize widefield imaging data.
+
 
 
