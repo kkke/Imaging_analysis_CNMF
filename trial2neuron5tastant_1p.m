@@ -9,7 +9,9 @@ for n = 1:size(trial(1).S_trace,1) % number of neurons
         for i = 1: length(trial)
             if ~isnan(trial(i).(taste{j}))
                 neuron_data(n).ts_frame.(taste{j})(it,:) = trial(i).Frame(1:124)-trial(i).(taste{j})(1);
-                neuron_data(n).([taste{j},'_trace_dF'])(it,:) = trial(i).S_trace(n,1:124);
+%                 neuron_data(n).([taste{j},'_trace_dF'])(it,:) = trial(i).S_trace(n,1:124);
+                neuron_data(n).([taste{j},'_trace_dF'])(it,:) = trial(i).C_raw_trace(n,1:124);
+
                 %                 S_licks{it}    = trial(i).licks - trial(i).S(1);
                 it =1+it;
             end
