@@ -1,8 +1,9 @@
 function [T, outperm] = hierarchical_cluster(resp_ap)
 resp_ap_scaled = resp_ap./max(resp_ap,[],2);
 Z = linkage(resp_ap_scaled,'ward','euclidean');
-T = cluster(Z,'maxclust',9);
-cutoff = median([Z(end-8,3) Z(end-7,3)]);
+clusterN = 16;
+T = cluster(Z,'maxclust',clusterN); % edit by ke, increase the cluster from 9 to 16.
+cutoff = median([Z(end-15,3) Z(end-14,3)]);
 figure
 [H,tt,outperm] = dendrogram(Z,0,'ColorThreshold',cutoff);
 figure;
@@ -12,7 +13,7 @@ bar(resp_ap_scaled(outperm,i))
 hold on
 end
 %% plot the normalized responses
-for i = 1:9
+for i = 1:clusterN % edit by Ke, increase the cluster from 9 to 16.
     norResp(i).ap = resp_ap(find(T==i),:);
     norResp(i).ap = norResp(i).ap./max(norResp(i).ap,[],2);
     a = norResp(i).ap;
@@ -27,7 +28,7 @@ for i = 1:9
 %     print(['Cluster_C',num2str(i)],'-dpdf')
 end
 k = 1/log10(5);
-for i = 1:9
+for i = 1:clusterN % edit by Ke, increase the cluster from 9 to 16.
     nn = norResp(i).ap;
     nn = nn./sum(nn,2);
     for j = 1:size(nn,1)
@@ -39,7 +40,7 @@ for i = 1:9
     
 end
 figure
-for i =1:9
+for i =1:clusterN
     m(i) = mean(entrop(i).h)
     sem(i) = std(entrop(i).h)/sqrt(length(entrop(i).h));
     bar(i,m(i))
