@@ -28,7 +28,7 @@ for i = 1:length(ind_taste)
 end
 resp_ap = resp_ap.*temp_taste;
 resp_ap(find(mean(resp_ap,2)<=0),:)=[];
-[M, I] = max(resp_ap,[],2);
+[M, I] = max(resp_ap,[],2); % find the best stimuli for each neurons
 id = {'S','N','CA','Q','W'};
 for i = 1:length(id)
     best.(id{i}) = find(I ==i );
