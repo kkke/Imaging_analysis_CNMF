@@ -27,8 +27,10 @@ taste = {'S','N','CA','Q','W'};
 for i = 1:length(data)
     cd([data(i).disk,'\Imaging in GC\ImagingData\',data(i).animalID,'\',data(i).date,'\1\SessionSummary',])
     load(['summary_',data(i).animalID,'.mat'])
-    distance(i) = spatialMap_2p_v2_distance(Coor,neuron_data);
+%     distance(i) = spatialMap_2p_v2_distance(Coor,neuron_data);
 %     distance(i) = spatialMap_1p_distance_best(Coor,neuron_data,2);
+     distance(i) = spatialMap_2p_v2_distance_centroid(Coor,neuron_data) % distance using the centroid
+
     fprintf('Process the session %d\n',i)
 end
 
