@@ -1,6 +1,6 @@
 function neuron_data = trial2neuron5tastant_2p_v2(neuron_data,trial)
-neuron_data_temp = trial2neuron5tastant_2p(trial);
-% neuron_data_temp = trial2neuron5tastant_1p(trial);
+% neuron_data_temp = trial2neuron5tastant_2p(trial);
+neuron_data_temp = trial2neuron5tastant_1p(trial);
 
 f = fieldnames(neuron_data_temp);
 for i = 1:length(f)
