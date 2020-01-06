@@ -37,7 +37,9 @@ end
 spatialMap_1p_v3(neuron,Coor,neuron_data, best, ind_taste)
 
 %% for extracting the response anterior and posterior to MCA
-% for i = 1:4
+
+
+% for i = 1:5
 %     [~,~,ib] = intersect(anterior.(f{i}),ind_taste);
 %     anterior.([f{i},'_resp']) = resp_ap(ib,i);  
 %     [~,~,ic] = intersect(posterior.(f{i}),ind_taste);
@@ -47,6 +49,7 @@ spatialMap_1p_v3(neuron,Coor,neuron_data, best, ind_taste)
 % for i = 1:4
 %     posterior.([f{i},'_resp']) = resp_ap(best.(id{i}),i); 
 % end
+
 %%
 % taste = {'S','N','CA','Q','W'};
 % for j = 1:5
