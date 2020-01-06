@@ -7,7 +7,7 @@ temp = [];
 for i = 1:length(data)
     cd([data(i).disk,'\Imaging in GC\ImagingData\',data(i).animalID,'\',data(i).date,'\1\SessionSummary',])
     load([data(i).animalID,'_',data(i).date,'.mat'])
-%     neuron_data = trial2neuron5tastant_2p_v2(neuron_data,trial);
+    neuron_data = trial2neuron5tastant_2p_v2(neuron_data,trial);
     for j = 1:length(neuron_data)
         neuron_data(j).Coor = Coor{j};
         for k = 1:length(trial)
@@ -32,8 +32,9 @@ spatialMap_1p_best(neuron,Coor,neuron_data,1) % plot neurons with best response
 for i = 1:length(data)
     cd([data(i).disk,'\Imaging in GC\ImagingData\',data(i).animalID,'\',data(i).date,'\1\SessionSummary',])
     load([data(i).animalID,'_',data(i).date,'.mat'])
-    distance(i) = spatialMap_2p_v2_distance(Coor,neuron_data);
+%     distance(i) = spatialMap_2p_v2_distance(Coor,neuron_data);
 %     distance(i) = spatialMap_1p_distance_best(Coor,neuron_data,1);
+     distance(i) = spatialMap_1p_distance_best_centroid(Coor,neuron_data,1) % distance using the centroid
     fprintf('Process the session %d\n',i)
 end
 % taste = {'CueRes','LickRes'};
