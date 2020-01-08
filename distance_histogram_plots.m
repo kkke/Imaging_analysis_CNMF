@@ -15,11 +15,11 @@ for j = 1:length(distance)
         [~, I] = sort([distance_sum(j).([taste{i},'_pseudo'])]*scale);
         temp = sumDistTaste(j).([f{i},'_pseudo'])(I(49));
         plot([temp,temp],[0,0.1],'--k')
-        xlim([100,300])
-%         xlim([100,600])
-%         xlim([550,850])
-%       xlim([300,800])
-%         xlim([50,250])
+%         xlim([100,300])
+% %         xlim([100,600])
+% %         xlim([550,850])
+% %       xlim([300,800])
+% %         xlim([50,250])
       title ([f{i},'_',data(j).animalID])
     end
 end
