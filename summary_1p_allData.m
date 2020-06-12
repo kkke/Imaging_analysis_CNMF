@@ -215,7 +215,7 @@ end
 
 resp_ap = resp_ap.*temp_taste; % taste response for each neuron.
 %% hierarchical cluster
-% % Y = pdist(resp_ap,'correlation');
+% Y = pdist(resp_ap,'correlation');
 % Y = pdist(resp_ap./max(resp_ap,[],2),'euclidean');
 % Z = linkage(Y,'average');
 % % T = cluster(Z,'maxclust',8)
@@ -226,6 +226,7 @@ resp_ap = resp_ap.*temp_taste; % taste response for each neuron.
 % cutoff = median([Z(end-8,3) Z(end-8,3)]);
 % dendrogram(Z,0,'ColorThreshold',cutoff)
 resp_ap(find(mean(resp_ap,2)<=0),:)=[];
+[entropy,T, outperm] = hierarchical_cluster(resp_ap);
 % Clusters = hierarcluster(resp_ap);
 % print('Cluster_dendrogram','-dpdf')
 %% plot the normalized responses
