@@ -1,4 +1,5 @@
 save('distance_centroid_1p_best.mat','distance','distanceSum','summary')
+%%
 f = fieldnames(distance);
 for k = 1:length(distance)
     for i = 1:length(f)
@@ -12,8 +13,8 @@ for k = 1:length(distance)
 end
 
 % plot the distance within a ground to the centroid
-% scale = 450/512; % convert pixel to distance in um: 2p
-scale = 2000/1280; % convert pixel to distance in um: 1p
+scale = 450/512; % convert pixel to distance in um: 2p
+% scale = 2000/1280; % convert pixel to distance in um: 1p
 for k = 1:length(distance) % [11,8,9,12,13]this list is for 2p, otherwise is length(distance)
     for i = 1:length(f)
         f2 = fieldnames(distance(k).(f{i}));
