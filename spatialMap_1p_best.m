@@ -34,8 +34,8 @@ for i = 1:length(id)
     best.(id{i}) = find(I ==i );
     best.summary(i) = length(find(I ==i ));
 end
-spatialMap_1p_v3(neuron,Coor,neuron_data, best, ind_taste)
-
+% spatialMap_1p_v3(neuron,Coor,neuron_data, best, ind_taste)
+spatialMap_1p_v3_narrow(neuron,Coor,neuron_data, best, ind_taste)
 %% for extracting the response anterior and posterior to MCA
 
 
