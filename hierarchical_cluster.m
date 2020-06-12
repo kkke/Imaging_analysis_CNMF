@@ -1,4 +1,4 @@
-function [T, outperm] = hierarchical_cluster(resp_ap)
+function [entrop,T, outperm] = hierarchical_cluster(resp_ap)
 resp_ap_scaled = resp_ap./max(resp_ap,[],2);
 Z = linkage(resp_ap_scaled,'ward','euclidean');
 clusterN = 16;
