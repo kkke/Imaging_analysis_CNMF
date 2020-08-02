@@ -24,6 +24,8 @@ neuron.Cn = Cn;
 spatialMap_1p_v2(neuron,Coor,neuron_data)
 %%
 taste = {'S','N','CA','Q','W'};
+% [11,8,9,12,13]
+
 for i = 1:length(data)
     cd([data(i).disk,'\Imaging in GC\ImagingData\',data(i).animalID,'\',data(i).date,'\1\SessionSummary',])
     load(['summary_',data(i).animalID,'.mat'])

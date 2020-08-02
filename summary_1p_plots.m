@@ -29,12 +29,14 @@ spatialMap_1p_v2(neuron,Coor,neuron_data)
 summary_1p(trial,neuron_data, neuron,Coor)
 spatialMap_1p_best(neuron,Coor,neuron_data,1) % plot neurons with best response
 %%
+% [11,8,9,12,13]
 for i = 1:length(data)
     cd([data(i).disk,'\Imaging in GC\ImagingData\',data(i).animalID,'\',data(i).date,'\1\SessionSummary',])
     load([data(i).animalID,'_',data(i).date,'.mat'])
 %     distance(i) = spatialMap_2p_v2_distance(Coor,neuron_data);
 %     distance(i) = spatialMap_1p_distance_best(Coor,neuron_data,1);
-     distance(i) = spatialMap_1p_distance_best_centroid(Coor,neuron_data,1) % distance using the centroid
+%      distance(i) = spatialMap_1p_distance_best_centroid(Coor,neuron_data,1) % distance using the centroid
+     distance(i) = spatialMap_1p_distance_cuelicktaste_centroid(Coor,neuron_data,1) % distance using the centroid
     fprintf('Process the session %d\n',i)
 end
 % taste = {'CueRes','LickRes'};

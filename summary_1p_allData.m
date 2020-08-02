@@ -15,7 +15,7 @@ all_num = sum(taste_all,2); % get the evoked response
 evoke_ratio = length(find(all_num>0))/length(all_num);
 taste_num = sum(taste_all(:,1:5),2);
 ind_taste      = find(taste_num>0);
-ind_cue  = find(taste(:,6)==1); % cue response
+ind_cue  = find(taste(:,6)>=1); % cue response
 ind_lick = find(taste(:,7)==1); % lick response
 lick_taste= intersect(ind_taste,ind_lick); % starts to clarify the lick response and taste response
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
