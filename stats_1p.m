@@ -1,6 +1,6 @@
 function neuron = stats_1p(trial,neuron)
 %% Taste response 
-taste         = {'S', 'N', 'CA','Q','W'};
+taste         = {'S', 'N', 'CA','Q','W', 'rinse'}; % add rinse
 % thr = 3;
 for j = 1:length(taste)
     for i = 1:length(neuron)
